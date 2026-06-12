@@ -1,0 +1,41 @@
+# Render.com Blueprint for PaperIQ
+# Single Docker service that builds React (Vite) and serves it via Django + Gunicorn.
+#
+# After connecting this repo on Render:
+#   1. Create a new "Blueprint" deploy from render.yaml, or
+#   2. Create a Web Service manually and select "Docker" with this repo's root Dockerfile.
+#
+# Required environment variables you must set in the Render dashboard:
+#   - DJANGO_SECRET_KEY   (a long random string)
+#   - MONGODB_URI         (MongoDB Atlas connection string)
+#   - GEMINI_API_KEY      (Google Generative AI key)
+#
+# Optional:
+#   - DJANGO_ALLOWED_HOSTS (defaults to *; Render adds RENDER_EXTERNAL_HOSTNAME automatically)
+#   - WEB_CONCURRENCY      (gunicorn workers, default 2)
+
+services:
+  - type: web
+    name: paperiq
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: "*"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      # Secrets you must fill in via the Render dashboard:
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false

@@ -1,0 +1,458 @@
+{
+    "file": "research_paper_3.pdf",
+    "entities": [
+        [
+            "kumar k",
+            "PERSON"
+        ],
+        [
+            "raman department information",
+            "ORG"
+        ],
+        [
+            "joseph college engineering chennai india department",
+            "ORG"
+        ],
+        [
+            "joseph",
+            "PERSON"
+        ],
+        [
+            "india",
+            "GPE"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn algorithm precise",
+            "ORG"
+        ],
+        [
+            "november",
+            "DATE"
+        ],
+        [
+            "january",
+            "DATE"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "kumar k",
+            "PERSON"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "mrcnn",
+            "PRODUCT"
+        ],
+        [
+            "monigari",
+            "ORG"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "al carried study identifying plant disease leaf review",
+            "PERSON"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "three",
+            "CARDINAL"
+        ],
+        [
+            "first",
+            "ORDINAL"
+        ],
+        [
+            "second",
+            "ORDINAL"
+        ],
+        [
+            "third",
+            "ORDINAL"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "india",
+            "GPE"
+        ],
+        [
+            "chemicalfree healthy kelothu",
+            "PERSON"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "vgg vgg",
+            "PERSON"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al carried smart",
+            "PERSON"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "al concentrated",
+            "PERSON"
+        ],
+        [
+            "machine svm",
+            "PERSON"
+        ],
+        [
+            "one",
+            "CARDINAL"
+        ],
+        [
+            "ko et al carried research myanmar",
+            "PERSON"
+        ],
+        [
+            "svm classifier",
+            "PERSON"
+        ],
+        [
+            "matlab ra",
+            "PERSON"
+        ],
+        [
+            "kmeans",
+            "NORP"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al",
+            "PERSON"
+        ],
+        [
+            "specie hassam et",
+            "PERSON"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "al carried research global food security threatened plant pest",
+            "ORG"
+        ],
+        [
+            "kumar k",
+            "PERSON"
+        ],
+        [
+            "al",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "united nation food agriculture organization",
+            "ORG"
+        ],
+        [
+            "vese",
+            "NORP"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "one",
+            "CARDINAL"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn algorithm plant disease",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "cnn algorithm plant disease",
+            "ORG"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "kumar k",
+            "PERSON"
+        ],
+        [
+            "roc",
+            "GPE"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "max",
+            "PERSON"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "kumar k",
+            "PERSON"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "pp monigari",
+            "PERSON"
+        ],
+        [
+            "pp li",
+            "PERSON"
+        ],
+        [
+            "zhang shujuan",
+            "PERSON"
+        ],
+        [
+            "wang bin",
+            "PERSON"
+        ],
+        [
+            "pp",
+            "GPE"
+        ],
+        [
+            "hasan nabobi",
+            "PERSON"
+        ],
+        [
+            "md mustavi",
+            "FAC"
+        ],
+        [
+            "malaysian",
+            "NORP"
+        ],
+        [
+            "iciptm pp shivaprasad k wadhawan",
+            "PERSON"
+        ],
+        [
+            "iciccs pp bharath vishal k",
+            "PERSON"
+        ],
+        [
+            "cnn international research journal engineering technology",
+            "ORG"
+        ],
+        [
+            "vikki binnar sanjeev",
+            "ORG"
+        ],
+        [
+            "md",
+            "GPE"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "ijert pp srivastava",
+            "PERSON"
+        ],
+        [
+            "cnn international journal",
+            "ORG"
+        ],
+        [
+            "pp ajra h nahar k sarkar",
+            "ORG"
+        ],
+        [
+            "islam",
+            "NORP"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "pp jasmeet kaur",
+            "ORG"
+        ],
+        [
+            "svm algorithm neural network approach international journal innovative research computer",
+            "ORG"
+        ],
+        [
+            "gidudu hulley marwala classification image",
+            "ORG"
+        ],
+        [
+            "svm university witwatersrand national research foundation south africa ko zin daw svm",
+            "ORG"
+        ],
+        [
+            "arnab micha zbigniew elzbieta",
+            "PERSON"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ],
+        [
+            "pp gobalakrishnan n pradeep k raman",
+            "ORG"
+        ],
+        [
+            "arif k",
+            "PERSON"
+        ],
+        [
+            "new zealand",
+            "GPE"
+        ],
+        [
+            "pp hassam",
+            "PERSON"
+        ],
+        [
+            "pp shafik w",
+            "ORG"
+        ],
+        [
+            "de silva l c systematic",
+            "ORG"
+        ],
+        [
+            "pp vishnoi k kumar k kumar",
+            "FAC"
+        ],
+        [
+            "cnn",
+            "ORG"
+        ]
+    ],
+    "keywords": [
+        "opportunity increase computerized structure could appropriately come across classify plant illness technological advancement led discovery applying system mastering technique plant ailment detection class leveraging eai endorsed transaction internet thing volume sai sharvesh r suresh kumar k cj raman algorithm along cnns expand machine may examine plant picture become aware disease symptom offer accurate disorder diagnosis predicted effect observation provide treasured insight prospect usage machine mastering plant disease detection presenting enthusiast higher understanding suitability numerous algorithm mission patel et al proposed solution identifying categorizing leaf disease deep learning image processing method frequently utilized method include image preprocessing cnn mrcnn frcnn monigari et al presented innovative solution plant disease detection using leaf photograph approach involved utilizing image processing technique like acquisition filtering segmentation feature extraction classification trained deep cnn dataset comprising image folder healthy diseased plant leaf main goal study develop precise effective method identifying plant disease leaf image analysis employing modern image identification technology like cnns researcher aimed provide quick accurate tool disease detection facilitating timely intervention agriculture sai et al developed novel disease detection system introduced utilizing color texturebased analysis deep learning technique system employ densenet image classification dcnn semantic segmentation distinguish healthy defective leaf pixel evaluating pixel value model accurately identifies disease type measure extent infection system generates valuable output including disease categorization infection stage damaged area segmentation tailored recommendation suitable remedy innovative approach show promising potential facilitating timely intervention targeted treatment improve crop health enhance agricultural productivity lili et al carried study identifying plant disease leaf review present research progress crop leaf disease identification highlighting development difficulty use deep learning sophisticated imaging method identify plant leaf disease study act valuable resource researcher studying plant disease sensing insect pest objective paper aim explore application machine learning technique accurate sensing classification plant disease primary focus develop automated system capable analyzing plant image detecting disease symptom classifying plant healthy disease affected plant disease diagnostics help identifying integrity life span plant leaf without difficulty farmer know name integrity life span provides insight benefit application developed plant disease detection system including early disease detection precision agricultural practice effective disease management strategy literature survey nabobi et al examined detection plant leaf disease highlighting limitation manual visual inspection addressed challenge utilizing image processing artificial intelligence algorithm research organized three part first part explored various image processing ai technique second part evaluated different framework accuracy third part provided detailed explanation disease detection classification performance work contributed valuable insight automated approach disease recognition promising advance agricultural practice crop management pranesh et al presented intelligent effective method crop disease detection employing computer vision machine learning technique system demonstrates impressive accuracy detecting disease across common plant accomplish researcher utilized plant village dataset publicly available collection rgb image healthy diseased plant leaf algorithm rigorously tested across different class validate performance rahul et al described significance india agriculture industry research study demonstrated method identifying plant illness using image processing leaf effort provide solution query whether grain crop chemicalfree healthy kelothu et al utilized dataset comprising image perform study detection plant disease study employed vgg vgg cnn model outcome study favor vgg model accuracy work stated advantage limitation deep learning like automatic feature extraction scalability overfitting need sophisticated computational resource highquality annotated data bharath et al carried smart farming system improve agricultural production quality quantity addressing plant leaf disease important threat food safety employed deep learning computer vision disease diagnosis plant leaf cnns successful classifying various plant leaf disease using neuronwise layerwise visualization method neural eai endorsed transaction internet thing volume accurate plant disease detection technique using machine learning network catch color texture lesion acting human decisionmakers disease diagnosis vikki et al proposed solution challenge faced agriculturist like diagnosing plant leaf disease destructive insect work employed model sequential model inceptionv alexnet mobilenet find plant leaf disease processing image trained model found effective early warning tool strategy real world unified plant disease detection system tariqul et al introduced system utilized image processing cnn increase crop production alleviate plant disease insect attraction model trained dataset achieve accuracy rate research helped universal cultivator increase crop production alleviate plant disease insect attraction prakanshu et al established innovative method disease recognition plant using deep convolutional network leaf image classification leveraging advancement computer vision approach provides fast accurate mean detecting plant disease training deep cnn diverse dataset plant leaf model successfully distinguished healthy diseased leaf result showed promising potential disease recognition offering valuable insight agriculture food security possibility improving crop yield managing plant disease global scale husnul et al stated importance agriculture mentioning critical satisfying basic food demand supporting healthy global economy study suggested method identifying plant leaf disease taking preventative action using image processing cnn model resnet alexnet technique achieves accuracy resnet accuracy alexnet method also offered visual representation prevent leaf disease promote plant health jasmeet et al proposed new method combining bp pca svd improve plant disease detection accuracy bpa enables training network hidden unit layer without layer organization pca convert correlated uncorrelated observation svd reliable orthogonal matrix decomposition method popular signal image processing relation matrix rank ability estimated matrix given rank crucial proposed method aim improve plant disease detection accuracy efficiency gidudu et al concentrated land cover mapping employing support vector machine svm new organized classification technique land cover mapping gaining popularity due robustness accuracy effectiveness essentially binary classifier handle multiple classification task remote sensing study study evaluated impact oneagainstone one againstall aa technique land cover mapping choice suitable technique depends personal preference dataset uniqueness ko et al carried research myanmar agricultural sector research work presented svm classifier algorithm using matlab ra leaf disease classification algorithm converted rgb color space hsi used kmeans clustering defect selection extracted feature using glcm used median filter noisefree result achieved maximum accuracy godliver et al presented research work segregating healthy affected part using spectral data leaf result show significant improvement performance early detection disease crop become visibly symptomatic mahmudul et al diagnosed plant disease focusing leaf approach utilized deep cnn model model replaced conventional depthseparable convolution technique thereby lower cost involved computation number parameter training given model using dataset considers category plant category illness etc employing inceptionv accuracy obtained mobile netv inceptionresnetv efficentnetb attained accuracy level gobalakrishnan et al conducted survey highlighting importance predicting plant disease lifetime particularly affecting leaf survey focused wellknown image processing technique diagnose check illness plant study also concentrated identification infection plant comparing various machine learning algorithm saleem et la carried research deep learningbased plant disease identification gained popularity tested horticulture setting study us nzdlplantdiseasev dataset identify plant disease using improved regionbased fully convolutional network model model achieves mean average precision better default setting study may serve standard automated disease management diverse plant specie hassam et al developed research fruit disease detection important area computer vision since lower fruit yield effect economy address problem duplicated feature cnn model selection low contrast picture processing delay single stream cnn architecture put forth detection citrus illness shafik et al carried research global food security threatened plant pest disease problem managed using technique ai machine learning deep learning emphasis hyperspectral image vision centered methodology systematic literature review eai endorsed transaction internet thing volume sai sharvesh r suresh kumar k cj raman examined publication using ai technique successfully still several unresolved problem vishnoi et al proposed research work using cnn identifying plant disease using leaf picture model suited portable device since classification accuracy us less storage processing power moupojou et al conducted survey united nation food agriculture organization goal enhance global food production year significant challenge arises due substantial loss incurred plant disease accounting onethird potential growth wasted addressing issue various plant disease database employed train deep learning model notably plant village plantdoc contribute valuable data recent study indicated field plant dataset consisting image outperforms plantdoc term efficacy classifying photograph existing system previous study area used chan vese cvalgorithm detecting plant illness plant showcase illness considerable version sign color change spot lesion deformation variation make tough develop strong system learning model could correctly locate classify illness throughout distinct plant specie environmental situation algorithm utilizes standard lively contour level set technique iteratively optimize segmentation based predefined electricity useful extracted feature used classify detected sickness machine gaining knowledge strategy inclusive svm decision tree neural network hired cause class version educated use classified statistic accomplice particular feature known disease extracted feature used classify detected sickness machine getting know strategy along svm selection timber neural network employed reason type model skilled usage categorized fact accomplice particular capability recognized disease drawback existing system existing system plant sickness detection use gadget learning regularly war generalizing performance unseen fact different environmental condition model skilled particular datasets may difficulty detecting illness flower exhibit version symptom come exclusive region climate current structure may also require specialized hardware technical understanding set function successfully restricted accessibility pose obstacle farmer agricultural worker people aidconfined setting may also advantage disease detection system existing structure depend outstanding snap shot accurate disease detection however actual international scenario taking picture wonderful pix might always feasible element includes lighting situation digicam barrier photograph noise dependency terrific photograph restrict sensible applicability system proposed method overcome issue prevailing methodology machine regression classification algorithm may used cnn considering system learning model system architecture shown figure cnn model show accuracy level properly set rule additionally enables distinguish affected leaf unaffected leaf proposed system intention overcome shortcoming existing one gadget requirement advanced primarily based input prior metric device user addition flaw previously documented following dream cautioned gadget listed farmer easily recognise name plant disease accuracy level lifetime need look solution affected leaf separately since web application show ailment prevention save time farmer providing required information whereabouts without going agriculture office test system architecture figure system architecture eai endorsed transaction internet thing volume accurate plant disease detection technique using machine learning data collection dataset would encompass duplicate row lacking cell hence education vital dispose duplicate impute missing data data preprocessing preprocessing involves cleaning raw information amassing statistic within real world changing errorfree datasets part conversation known statistic preprocessing specific operation performed transform data free information set barely decreased appropriate evaluation following example crucial pre processing strategy missing data handling dimensionality reduction dimensionality reduction data partitioning set rule fact simply large ever processed quickly become extra complex feature set reduce complexity feature selection specifies subset authentic feature relevant record statistic must added selected function complete better task use truncated representation rather entire starting record curtails difficulty handling complexity dataset reduced description complicated record structure advantage function withdrawal avoids clustering estimate intention overconverge guidance poor convergence activity highlight extraction common time period technique combining factor resolve trouble build successful version use advantageous element extraction display record extra accurately testing couple factor call load memory processing electricity model selection process selecting final ai model list train plant disease image called model selection model selection cycle used compare different model unique model set different model hyperparameters used cnn train data set cnn cnn deep learning algorithm worn image recognition computer vision task integrates multiple layer including convolutional layer pooling layer fully connected layer convolutional layer detect local pattern feature image pooling layer reduce spatial dimension improve robustness fetching variation activation function introduce non linearity relu sigmoid function fully connected layer make prediction based learned feature training cnns optimize parameter using technique like backpropagation gradient descent particularly effective object detection image classification semantic segmentation automatically learn extract hierarchical feature image researcher developed various variation architectural modification improve performance address specific challenge cnns ideal plant disease detection due ability capture local pattern translation invariance robust feature learning handling variability complexity scalability transfer learning realtime noninvasive detection suitability real time noninvasive application algorithm capture local pattern extract relevant feature input image translation invariant allowing accurately identify disease symptom leaf also learn hierarchical representation feature enabling distinguish healthy diseased plant leaf cnns suitable realworld plant disease detection scenario due ability generalize well diverse example handle large datasets efficiently additionally cnnbased system deployed realtime application enabling timely identification response disease outbreak furthermore non invasive nature enables efficient nondestructive monitoring plant health scale overall cnns potential revolutionize precision agriculture contribute sustainable crop management training testing data train test machine learning model testing data assesses model performance hidden data training data used create training worm depending size complexity dataset typical split training testing make easier evaluate well model performs actual situation well generalises fresh sample training dataset cnn algorithm plant disease detection consists labelled image representing sample plant leaf part affected various disease cnn algorithm learn extract feature image classify disease category quality representativeness training data significantly influence model performance test data cnn algorithm plant disease detection set labelled image used training phase image evaluate model performance generalization ability unseen data ensuring representative realworld scenario includes disease category training data ensures unbiased evaluation cnn algorithm performance shown figure provides accurate assessment model ability eai endorsed transaction internet thing volume sai sharvesh r suresh kumar k cj raman figure training testing data evaluation proposed model classification model performance measured using variety metric including precision fscore recall auc confusion matrix crossvalidation roc curve accuracy metric used identify strength weakness model select right metric specific application understanding metric work possible improve performance model performance metric performance metric provide insight model accuracy erudition identify diseased sample robustness handling imbalanced datasets important consider multiple metric assess collectively get comprehensive understanding cnn algorithm performance plant disease detection convolution operation output feature map size calculated using formula inputsize kernelsize padding stride max pooling operation output size calculated similarly convolution operation using formula softmax activation softmax function defined softmaxx ex sumex class e base natural logarithm result discussion output performance metric model figure accuracy cnn model training accuracy measure well machine learning model performs training dataset calculated comparing model predicted label true label training dataset great precision training indicates model able fit training data well learn underlying pattern figure represents training validation accuracy utilized validation dataset determine validation accuracy model accuracy figure model accuracy model accuracy metric used measure well machine learning model performs given task represents proportion correct prediction made model prediction model accuracy refers ratio accurate prediction total number prediction made accuracy using model shown figure deployment model web interface developed using flask popular web application framework written python integration model web page achieved use pickle library various page web application shown figure eai endorsed transaction internet thing volume accurate plant disease detection technique using machine learning figure login page figure signup page figure home page figure high level detection page figure low level detection page figure contact u page eai endorsed transaction internet thing volume sai sharvesh r suresh kumar k cj raman figure u page conclusion paper utilized cnn algorithm accurately predict plant disease web application created utilizing load technology including python html cs javascript sklearn matplot numpy panda flask library make consumer interface ui extra accessible easy deployment proposed version farmer access via web application easily user friendly application list name plant disease lifetime preventive treatment measure farmer uploaded picture affected leaf finally detecting illness early stage farmer take appropriate remedial step curb sickness crop loss reference patel sneha jaliya pranay survey plant leaf disease detection international journal modern trend science technology vol pp monigari vaishnavi plant leaf disease prediction international journal research applied science engineering technology vol pp reddy b neeraja plant leaf disease classification damage detection system using deep learning model multimed tool appl vol pp li lili zhang shujuan wang bin plant disease detection classification deep learninga review ieee access pp hasan nabobi md mustavi plant leaf disease detection using image processing comprehensive review malaysian journal science advanced technology pp pranesh atharva karwande tejas kolhe plant disease detection using image processing machine learning kundu r chauhan u chauhan p plant leaf disease detection using image processing proceeding nd international conference innovative practice technology management iciptm pp shivaprasad k wadhawan deep learningbased plant leaf disease detection proceeding th international conference intelligent computing control system iciccs pp bharath vishal k pavithran p malathi detection plant leaf disease using cnn international research journal engineering technology irjet pp vikki binnar sanjeev sharma plant leaf disease detection using deep learning algorithm springer vol tariqul md plant disease detection using cnn model image processing international journal engineering research technology ijert pp srivastava prakanshu mishra plant disease detection using cnn international journal advanced research vol pp ajra h nahar k sarkar l islam disease detection plant leaf using image processing cnn preventive measure proceeding emerging technology computing communication electronics etcce pp jasmeet kaur ramanpreet er plant disease detection using svm algorithm neural network approach international journal innovative research computer communication engineering ijircce vol gidudu hulley marwala classification image using svm university witwatersrand national research foundation south africa ko zin daw svm based classification leaf disease international journal science engineering application vol pp godliver friedrich ernest machine learning diagnosis disease plant using spectral data proceeding international conference artificial intelligence icai mahmudul sk arnab micha zbigniew elzbieta identification plantleaf disease using cnn transferlearning approach electronics vol pp gobalakrishnan n pradeep k raman c j systematic review image processing machine learning technique detecting plant disease proceeding international conference communication signal processing saleem h potgieter j arif k performanceoptimized deep learningbased plant disease detection approach horticultural crop new zealand proceeding ieee access vol pp hassam single stream modified mobilenet v whale controlled entropy based optimization framework citrus fruit disease recognition proceeding ieee access vol pp shafik w tufail namoun de silva l c systematic literature review plant disease detection motivation classification technique datasets challenge future trend proceeding ieee access vol pp vishnoi k kumar k kumar b mohan detection apple plant disease using leaf image cnn proceeding ieee access vol pp eai endorsed transaction internet thing volume accurate plant disease detection technique using machine learning moupojou e fieldplant dataset field plant image plant disease detection classification deep learning proceeding ieee access vol pp eai endorsed transaction internet thing volume",
+        "eai endorsed transaction internet thing research article accurate plant disease detection technique using machine learning sai sharvesh r suresh kumar k cj raman department information technology st joseph college engineering chennai india department artificial intelligence machine learning st joseph college engineering chennai india abstract introduction plant disease pose significant threat agriculture causing substantial crop financial loss modern technology enable precise monitoring plant health early disease identification employing image processing particularly convolutional neural network cnn technique allows accurate prediction plant disease aim provide automated reliable disease detection system aiding professional farmer timely action prevent infection reduce crop loss integrating cuttingedge technology agriculture hold vast potential enhance profitability production objective primary focus lie developing automated system proficient analysing plant image detect disease symptom classify plant healthy disease affected system aim simplify plant disease diagnostics farmer providing essential information leaf name integrity life span method method aim empower farmer enabling easy identification plant disease providing essential detail like disease name accuracy level life span cnn model accurately gauge system accuracy level streamlines process offering unified solution userfriendly web application eliminating need separate intervention affected leaf system save farmer time delivering crucial information directly result proposed web application prof comprehensive solution eliminating need farmer search separate intervention affected leaf machine learning model exhibit noteworthy accuracy emphasizing proficiency making correct prediction given task conclusion conclusion paper successfully employed cnn algorithm precise plant disease prediction proposed model deployment farmer easily access information plant disease life span preventive measure web application detecting illness early farmer promptly take remedial action mitigate sickness minimize crop loss integrated approach hold promise advancing agricultural practice ensuring sustainable crop management keywords agriculture plant disease detection image processing machine learning received november accepted january published january copyright sai sharvesh r et al licensed eai open access article distributed term cc ncsa permit copying redistributing remixing transformation building upon material medium long original work properly cited doi eetiot corresponding author email saisharveshgmailcom introduction plant sickness detection vital element agriculture play vital position making sure crop fitness minimizing loss keeping meal security traditional strategy disorder detection regularly rely upon manual inspection visible commentary may timeconsuming subjective liable human error advancement machine gaining knowledge synthetic intelligence"
+    ],
+    "summary": "Based on the text provided, here is a concise summary focusing on key insights, methods, and findings:\n\nThis research details the development of an automated plant disease detection system to assist farmers. The key insight is that traditional manual inspection is slow and subjective, whereas a Convolutional Neural Network (CNN) can provide a fast, accurate diagnosis from leaf images.\n\nThe method involved training a CNN model on a dataset of leaf images to classify them as healthy or diseased. This trained model was then integrated into a user-friendly web application using the Flask framework, allowing farmers to upload images for analysis.\n\nThe system was found to be highly accurate. Its key finding is its ability to provide farmers with a comprehensive and actionable diagnosis, including the disease name, preventive measures, and the plant's life span, empowering them to take timely action and reduce crop loss."
+}

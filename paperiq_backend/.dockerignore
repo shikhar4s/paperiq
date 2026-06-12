@@ -1,0 +1,35 @@
+# Virtual environment
+venv/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Django static & media files
+*.sqlite3
+
+# Build and dependency caches
+*.egg-info/
+.eggs/
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE & editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Version control
+.git/
+.gitignore
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+venv/

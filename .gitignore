@@ -1,0 +1,47 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+paperiq_backend/venv
+
+# --- Environment / secrets ---
+.env
+.env.local
+.env.*.local
+paperiq_backend/.env
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- Django runtime artifacts ---
+paperiq_backend/db.sqlite3
+paperiq_backend/staticfiles/
+paperiq_backend/frontend_dist/
+paperiq_backend/media/
+paperiq_backend/static/media/
+
+# --- Backups ---
+*.bak

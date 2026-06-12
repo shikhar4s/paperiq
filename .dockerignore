@@ -1,0 +1,39 @@
+# --- Node / front-end ---
+node_modules/
+dist/
+build/
+.vite/
+.cache/
+
+# --- Python / venv ---
+__pycache__/
+*.pyc
+*.pyo
+.Python
+.venv/
+venv/
+env/
+
+# --- Django runtime artifacts (rebuilt inside the image) ---
+paperiq_backend/db.sqlite3
+paperiq_backend/staticfiles/
+paperiq_backend/media/
+paperiq_backend/frontend_dist/
+paperiq_backend/static/media/
+paperiq_backend/**/__pycache__/
+
+# --- VCS / editor / OS ---
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Logs / backups ---
+*.log
+*.bak
+paperiq_backend/requirements.full.bak
+
+# Don't ship the Dockerfile into the build context itself
+.dockerignore

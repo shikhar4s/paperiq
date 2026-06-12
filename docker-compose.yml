@@ -1,0 +1,29 @@
+# Run locally with:
+#   docker compose up --build
+# Stop with Ctrl+C; remove with `docker compose down`.
+#
+# Reads secrets from `.env` in the same directory as this file.
+# Copy `.env.example` to `.env` and fill in the values before starting.
+
+services:
+  paperiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: paperiq:local
+    container_name: paperiq
+    env_file:
+      - .env
+    environment:
+      PORT: "8000"
+      PYTHONUNBUFFERED: "1"
+      # Persist sqlite (Django admin/auth) on the named volume below.
+      DJANGO_SQLITE_PATH: /data/db.sqlite3
+    ports:
+      - "8000:8000"
+    volumes:
+      - paperiq_sqlite:/data
+    restart: unless-stopped
+
+volumes:
+  paperiq_sqlite:
