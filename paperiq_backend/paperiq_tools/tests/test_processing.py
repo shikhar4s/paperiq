@@ -1,8 +1,8 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from paperiq_tools.Pipeline import DocumentPipeline
-from paperiq_tools.summarizer import GeminiSummarizer, SummarizationError
+from paperiq_tools.summarizer import GeminiSummarizer
 
 
 class PipelineTests(unittest.TestCase):
@@ -20,23 +20,33 @@ class PipelineTests(unittest.TestCase):
 
 
 class SummarizerTests(unittest.TestCase):
-    def build_summarizer(self, responses):
+    def build_summarizer(self):
         summarizer = GeminiSummarizer.__new__(GeminiSummarizer)
-        summarizer.model = Mock()
-        summarizer.model.generate_content.side_effect = [Mock(text=value) for value in responses]
+        summarizer.api_key = "test-key"
+        summarizer.endpoint = "https://example.invalid/generateContent"
         return summarizer
 
-    def test_short_document_uses_one_model_call(self):
-        summarizer = self.build_summarizer(["Useful summary"])
+    @patch("paperiq_tools.summarizer.requests.post")
+    def test_short_document_uses_one_model_call(self, post):
+        post.return_value = Mock(
+            ok=True,
+            json=lambda: {"candidates": [{"content": {"parts": [{"text": "Useful summary"}]}}]},
+        )
+        summarizer = self.build_summarizer()
         self.assertEqual(summarizer.summarize("Short document"), "Useful summary")
-        self.assertEqual(summarizer.model.generate_content.call_count, 1)
+        self.assertEqual(post.call_count, 1)
 
-    def test_model_failure_does_not_return_placeholder_summary(self):
-        summarizer = GeminiSummarizer.__new__(GeminiSummarizer)
-        summarizer.model = Mock()
-        summarizer.model.generate_content.side_effect = RuntimeError("404 model unavailable")
-        with self.assertRaises(SummarizationError):
-            summarizer.summarize("Short document")
+    @patch("paperiq_tools.summarizer.requests.post")
+    def test_model_failure_returns_real_local_summary(self, post):
+        post.return_value = Mock(
+            ok=False,
+            status_code=403,
+            json=lambda: {"error": {"message": "Project denied access"}},
+        )
+        source = "PaperIQ processes research papers. It preserves names and important findings."
+        result = self.build_summarizer().summarize(source)
+        self.assertEqual(result, source)
+        self.assertNotIn("Error summarizing this chunk", result)
 
 
 if __name__ == "__main__":

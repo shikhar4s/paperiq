@@ -1,7 +1,9 @@
 import os
+import re
 import time
+from collections import Counter
 
-import google.generativeai as genai
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,15 +15,14 @@ class SummarizationError(RuntimeError):
 
 class GeminiSummarizer:
     def __init__(self):
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        if not self.api_key:
             raise ValueError("GEMINI_API_KEY is not configured")
 
-        genai.configure(api_key=api_key)
         self.model_name = os.getenv("GEMINI_MODEL", "gemini-3.6-flash").removeprefix("models/")
-        self.model = genai.GenerativeModel(
-            self.model_name,
-            generation_config={"temperature": 0.2, "max_output_tokens": 1800},
+        self.endpoint = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{self.model_name}:generateContent"
         )
         print(f"Gemini service initialized with {self.model_name}.")
 
@@ -43,11 +44,24 @@ class GeminiSummarizer:
         if text:
             yield text
 
-    def _generate(self, prompt, retries=3):
+    def _generate(self, prompt, retries=2):
         for attempt in range(retries):
             try:
-                response = self.model.generate_content(prompt)
-                result = (getattr(response, "text", "") or "").strip()
+                response = requests.post(
+                    self.endpoint,
+                    headers={"x-goog-api-key": self.api_key},
+                    json={
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1800},
+                    },
+                    timeout=(5, 20),
+                )
+                if not response.ok:
+                    detail = response.json().get("error", {}).get("message", response.text)
+                    raise SummarizationError(f"Google Gemini returned {response.status_code}: {detail}")
+                payload = response.json()
+                parts = payload.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+                result = "\n".join(part.get("text", "") for part in parts).strip()
                 if not result:
                     raise SummarizationError("Gemini returned an empty response")
                 return result
@@ -59,13 +73,47 @@ class GeminiSummarizer:
                     continue
                 raise SummarizationError(f"Gemini summarization failed: {error}") from error
 
-    def _summarize_chunk(self, text):
-        return self._generate(
-            "You are a precise research assistant. Summarize the document section below. "
-            "Preserve important names, numbers, methods, findings, limitations, and conclusions. "
-            "Do not invent information. Use clear paragraphs and concise bullet points when useful.\n\n"
-            f"DOCUMENT SECTION:\n{text}"
+    @staticmethod
+    def _extractive_summary(text, max_sentences=5, max_characters=1200):
+        """Return a useful deterministic summary when the AI provider is unavailable."""
+        sentences = [
+            sentence.strip()
+            for sentence in re.split(r"(?<=[.!?])\s+|\n+", text)
+            if sentence.strip()
+        ]
+        if not sentences:
+            return text.strip()[:max_characters]
+        if len(sentences) <= max_sentences:
+            return " ".join(sentences)[:max_characters]
+
+        stop_words = {
+            "a", "an", "and", "are", "as", "at", "be", "by", "for", "from",
+            "in", "is", "it", "of", "on", "or", "that", "the", "this", "to", "with",
+        }
+        words = re.findall(r"[a-zA-Z][a-zA-Z0-9-]{2,}", text.lower())
+        frequencies = Counter(word for word in words if word not in stop_words)
+        ranked = sorted(
+            range(len(sentences)),
+            key=lambda index: sum(
+                frequencies.get(word, 0)
+                for word in re.findall(r"[a-zA-Z][a-zA-Z0-9-]{2,}", sentences[index].lower())
+            ) / max(len(sentences[index].split()), 1),
+            reverse=True,
         )
+        selected = sorted(ranked[:max_sentences])
+        return " ".join(sentences[index] for index in selected)[:max_characters]
+
+    def _summarize_chunk(self, text):
+        try:
+            return self._generate(
+                "You are a precise research assistant. Summarize the document section below. "
+                "Preserve important names, numbers, methods, findings, limitations, and conclusions. "
+                "Do not invent information. Use clear paragraphs and concise bullet points when useful.\n\n"
+                f"DOCUMENT SECTION:\n{text}"
+            )
+        except SummarizationError as error:
+            print(f"Gemini unavailable; using local document summary: {error}")
+            return self._extractive_summary(text)
 
     def summarize(self, text, chunk_size=16_000):
         if not isinstance(text, str) or not text.strip():
@@ -79,9 +127,13 @@ class GeminiSummarizer:
         combined = "\n\n".join(
             f"Section {index}:\n{summary}" for index, summary in enumerate(summaries, start=1)
         )
-        return self._generate(
-            "Combine the section summaries below into one coherent, non-repetitive final summary. "
-            "Retain the document's key methods, evidence, findings, limitations, and conclusions. "
-            "Do not add facts that are absent from the sections.\n\n"
-            f"SECTION SUMMARIES:\n{combined}"
-        )
+        try:
+            return self._generate(
+                "Combine the section summaries below into one coherent, non-repetitive final summary. "
+                "Retain the document's key methods, evidence, findings, limitations, and conclusions. "
+                "Do not add facts that are absent from the sections.\n\n"
+                f"SECTION SUMMARIES:\n{combined}"
+            )
+        except SummarizationError as error:
+            print(f"Gemini unavailable; combining summaries locally: {error}")
+            return self._extractive_summary(combined)
