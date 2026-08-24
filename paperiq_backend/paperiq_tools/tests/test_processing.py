@@ -36,6 +36,31 @@ class SummarizerTests(unittest.TestCase):
         self.assertEqual(summarizer.summarize("Short document"), "Useful summary")
         self.assertEqual(post.call_count, 1)
         self.assertEqual(post.call_args.kwargs["json"]["generationConfig"]["maxOutputTokens"], 4096)
+        self.assertEqual(
+            post.call_args.kwargs["json"]["generationConfig"]["thinkingConfig"],
+            {"thinkingLevel": "minimal"},
+        )
+
+    @patch("paperiq_tools.summarizer.requests.post")
+    def test_internal_thoughts_are_excluded_from_summary(self, post):
+        post.return_value = Mock(
+            ok=True,
+            json=lambda: {
+                "candidates": [{
+                    "content": {
+                        "parts": [
+                            {"text": "Internal reasoning", "thought": True},
+                            {"text": "Complete user-facing summary"},
+                        ],
+                    },
+                }],
+            },
+        )
+
+        self.assertEqual(
+            self.build_summarizer().summarize("Short document"),
+            "Complete user-facing summary",
+        )
 
     @patch("paperiq_tools.summarizer.requests.post")
     def test_truncated_response_continues_remaining_sections(self, post):

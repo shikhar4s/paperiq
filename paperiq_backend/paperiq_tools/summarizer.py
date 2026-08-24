@@ -45,6 +45,10 @@ class GeminiSummarizer:
             yield text
 
     def _request_generation(self, prompt, retries=2):
+        generation_config = {"temperature": 0.2, "maxOutputTokens": 4096}
+        if getattr(self, "model_name", "gemini-3.6-flash").startswith("gemini-3"):
+            generation_config["thinkingConfig"] = {"thinkingLevel": "minimal"}
+
         for attempt in range(retries):
             try:
                 response = requests.post(
@@ -52,7 +56,7 @@ class GeminiSummarizer:
                     headers={"x-goog-api-key": self.api_key},
                     json={
                         "contents": [{"parts": [{"text": prompt}]}],
-                        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 4096},
+                        "generationConfig": generation_config,
                     },
                     timeout=(5, 20),
                 )
@@ -62,7 +66,9 @@ class GeminiSummarizer:
                 payload = response.json()
                 candidate = payload.get("candidates", [{}])[0]
                 parts = candidate.get("content", {}).get("parts", [])
-                result = "\n".join(part.get("text", "") for part in parts).strip()
+                result = "\n".join(
+                    part.get("text", "") for part in parts if not part.get("thought", False)
+                ).strip()
                 if not result:
                     raise SummarizationError("Gemini returned an empty response")
                 return result, candidate.get("finishReason", "STOP")
