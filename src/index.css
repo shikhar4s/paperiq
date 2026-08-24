@@ -4,44 +4,44 @@
 
 @layer base {
   :root {
-    --background: 228 38% 7%;
-    --foreground: 220 27% 96%;
+    --background: 42 43% 96%;
+    --foreground: 158 24% 14%;
 
-    --card: 228 30% 11%;
-    --card-foreground: 220 27% 96%;
+    --card: 45 50% 99%;
+    --card-foreground: 158 24% 14%;
 
-    --popover: 228 30% 11%;
-    --popover-foreground: 220 27% 96%;
+    --popover: 45 50% 99%;
+    --popover-foreground: 158 24% 14%;
 
-    --primary: 250 94% 69%;
+    --primary: 158 41% 23%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 226 24% 16%;
-    --secondary-foreground: 220 27% 96%;
+    --secondary: 41 35% 91%;
+    --secondary-foreground: 158 24% 14%;
 
-    --muted: 226 24% 16%;
-    --muted-foreground: 221 15% 65%;
+    --muted: 42 29% 91%;
+    --muted-foreground: 152 9% 44%;
 
-    --accent: 173 75% 45%;
+    --accent: 15 73% 54%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 227 21% 20%;
-    --input: 227 21% 20%;
-    --ring: 250 94% 69%;
+    --border: 38 22% 84%;
+    --input: 38 22% 84%;
+    --ring: 158 41% 23%;
 
-    --radius: 1rem;
+    --radius: 0.7rem;
 
-    --sidebar-background: 228 34% 9%;
-    --sidebar-foreground: 220 27% 96%;
-    --sidebar-primary: 250 94% 69%;
+    --sidebar-background: 42 43% 96%;
+    --sidebar-foreground: 158 24% 14%;
+    --sidebar-primary: 158 41% 23%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 226 24% 16%;
-    --sidebar-accent-foreground: 220 27% 96%;
-    --sidebar-border: 227 21% 20%;
-    --sidebar-ring: 250 94% 69%;
+    --sidebar-accent: 41 35% 91%;
+    --sidebar-accent-foreground: 158 24% 14%;
+    --sidebar-border: 38 22% 84%;
+    --sidebar-ring: 158 41% 23%;
   }
 
   .dark {
@@ -91,53 +91,65 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: "cv11", "ss01";
     min-width: 320px;
   }
 
   ::selection {
-    background: hsl(250 94% 69% / 0.32);
+    background: hsl(15 73% 54% / 0.22);
   }
 }
 
 @layer components {
   .paperiq-grid {
-    background-image:
-      linear-gradient(hsl(220 30% 96% / 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(220 30% 96% / 0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+    background-image: radial-gradient(hsl(158 24% 14% / 0.15) 0.8px, transparent 0.8px);
+    background-size: 22px 22px;
+    mask-image: linear-gradient(130deg, transparent 15%, black 55%, transparent 100%);
   }
 
   .paperiq-glass {
-    background: linear-gradient(145deg, hsl(228 30% 15% / 0.84), hsl(228 32% 10% / 0.92));
-    border: 1px solid hsl(220 35% 95% / 0.08);
-    box-shadow: 0 18px 65px hsl(230 50% 3% / 0.28);
-    backdrop-filter: blur(18px);
+    background: hsl(45 50% 99%);
+    border: 1px solid hsl(38 22% 84%);
+    box-shadow: 4px 4px 0 hsl(38 25% 88%);
   }
 
   .paperiq-gradient-text {
-    background: linear-gradient(110deg, hsl(250 100% 78%), hsl(192 90% 65%) 58%, hsl(170 83% 58%));
+    background: linear-gradient(115deg, hsl(158 41% 23%), hsl(15 73% 54%));
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
   }
 
   .paperiq-field {
-    @apply h-12 rounded-xl border-white/10 bg-white/[0.045] px-4 text-white placeholder:text-slate-500;
-    @apply focus-visible:border-violet-400/70 focus-visible:ring-violet-400/20;
+    @apply h-12 rounded-lg border-stone-300 bg-white px-4 text-stone-900 placeholder:text-stone-400;
+    @apply focus-visible:border-emerald-700 focus-visible:ring-emerald-700/15;
   }
 
   .paperiq-primary-button {
-    @apply h-12 rounded-xl text-sm font-semibold text-white transition-all duration-300;
-    background: linear-gradient(115deg, hsl(250 94% 64%), hsl(266 88% 66%));
-    box-shadow: 0 10px 32px hsl(254 88% 60% / 0.3);
+    @apply h-12 rounded-lg text-sm font-semibold text-white transition-all duration-300;
+    background: hsl(158 41% 23%);
+    box-shadow: 4px 4px 0 hsl(15 73% 54%);
   }
 
   .paperiq-primary-button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 16px 38px hsl(254 88% 60% / 0.38);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 hsl(15 73% 54%);
+    background: hsl(158 41% 19%);
+  }
+
+  .paperiq-serif {
+    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  }
+
+  .paperiq-stamp {
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 5px 10px;
+    text-transform: uppercase;
   }
 }
 

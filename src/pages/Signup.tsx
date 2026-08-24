@@ -46,7 +46,7 @@ const Signup = () => {
       footer={(
         <>
           Already have an account?{" "}
-          <Link to="/login" className="font-semibold text-violet-300 transition-colors hover:text-violet-200">
+          <Link to="/login" className="font-semibold text-[#b6583b] transition-colors hover:text-[#173b31]">
             Sign in
           </Link>
         </>
@@ -54,33 +54,33 @@ const Signup = () => {
     >
       <form onSubmit={handleSignup} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="name" className="text-sm font-medium text-slate-200">Full name</Label>
+          <Label htmlFor="name" className="text-sm font-medium text-[#304038]">Full name</Label>
           <div className="relative">
-            <UserRound className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <UserRound className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-[#7a8176]" />
             <Input id="name" type="text" autoComplete="name" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} className="paperiq-field pl-11" required />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-sm font-medium text-slate-200">Email address</Label>
+          <Label htmlFor="email" className="text-sm font-medium text-[#304038]">Email address</Label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Mail className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-[#7a8176]" />
             <Input id="email" type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="paperiq-field pl-11" required />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-sm font-medium text-slate-200">Password</Label>
+          <Label htmlFor="password" className="text-sm font-medium text-[#304038]">Password</Label>
           <div className="relative">
-            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-[#7a8176]" />
             <Input id="password" type="password" autoComplete="new-password" placeholder="Create a strong password" value={password} onChange={(e) => setPassword(e.target.value)} className="paperiq-field pl-11" required />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword" className="text-sm font-medium text-slate-200">Confirm password</Label>
+          <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#304038]">Confirm password</Label>
           <div className="relative">
-            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-[#7a8176]" />
             <Input id="confirmPassword" type="password" autoComplete="new-password" placeholder="Repeat your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="paperiq-field pl-11" required />
           </div>
         </div>

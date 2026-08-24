@@ -41,7 +41,7 @@ const Login = () => {
       footer={(
         <>
           New to PaperIQ?{" "}
-          <Link to="/signup" className="font-semibold text-violet-300 transition-colors hover:text-violet-200">
+          <Link to="/signup" className="font-semibold text-[#b6583b] transition-colors hover:text-[#173b31]">
             Create an account
           </Link>
         </>
@@ -49,9 +49,9 @@ const Login = () => {
     >
       <form onSubmit={handleLogin} className="space-y-5">
         <div className="space-y-2.5">
-          <Label htmlFor="email" className="text-sm font-medium text-slate-200">Email address</Label>
+          <Label htmlFor="email" className="text-sm font-medium text-[#304038]">Email address</Label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Mail className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-[#7a8176]" />
             <Input
               id="email"
               type="email"
@@ -66,9 +66,9 @@ const Login = () => {
         </div>
 
         <div className="space-y-2.5">
-          <Label htmlFor="password" className="text-sm font-medium text-slate-200">Password</Label>
+          <Label htmlFor="password" className="text-sm font-medium text-[#304038]">Password</Label>
           <div className="relative">
-            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-[#7a8176]" />
             <Input
               id="password"
               type="password"

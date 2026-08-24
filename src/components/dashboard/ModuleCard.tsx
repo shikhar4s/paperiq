@@ -14,10 +14,10 @@ interface ModuleCardProps {
 }
 
 const colorClasses = {
-  blue: { icon: "border-sky-400/20 bg-sky-400/10 text-sky-300", glow: "from-sky-400/10", dot: "bg-sky-400" },
-  purple: { icon: "border-violet-400/20 bg-violet-400/10 text-violet-300", glow: "from-violet-400/10", dot: "bg-violet-400" },
-  amber: { icon: "border-amber-400/20 bg-amber-400/10 text-amber-300", glow: "from-amber-400/10", dot: "bg-amber-400" },
-  green: { icon: "border-emerald-400/20 bg-emerald-400/10 text-emerald-300", glow: "from-emerald-400/10", dot: "bg-emerald-400" },
+  blue: { icon: "border-[#afc7d0] bg-[#e8f0f2] text-[#355969]", glow: "from-[#dbe9ed]", dot: "bg-[#52788a]", number: "01" },
+  purple: { icon: "border-[#cfbea6] bg-[#f3ede3] text-[#775c40]", glow: "from-[#f2e9d9]", dot: "bg-[#9b7650]", number: "02" },
+  amber: { icon: "border-[#e8c892] bg-[#fbf1dc] text-[#946617]", glow: "from-[#f9efd5]", dot: "bg-[#c38729]", number: "03" },
+  green: { icon: "border-[#b5cbbb] bg-[#e9f0e8] text-[#315e4c]", glow: "from-[#e3ece2]", dot: "bg-[#527a60]", number: "04" },
 };
 
 const formatInlineMarkdown = (text: string): ReactNode[] =>
@@ -116,7 +116,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               <h5 className="font-semibold text-sm mb-2 text-foreground">Keywords:</h5>
               <div className="flex flex-wrap gap-2">
                 {outputData.keywords.map((keyword: string, index: number) => (
-                  <span key={index} className="rounded-full border border-amber-400/15 bg-amber-400/10 px-2.5 py-1 text-xs font-medium text-amber-200">
+                  <span key={index} className="rounded-sm border border-[#e6cc96] bg-[#fbf1dc] px-2.5 py-1 text-xs font-medium text-[#805b1a]">
                     {keyword}
                   </span>
                 ))}
@@ -128,7 +128,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               <h5 className="font-semibold text-sm mb-2 text-foreground">Entities:</h5>
               <div className="flex flex-wrap gap-2">
                 {outputData.entities.map((entity: string | [string, string], index: number) => (
-                  <span key={index} className="rounded-full border border-violet-400/15 bg-violet-400/10 px-2.5 py-1 text-xs font-medium text-violet-200">
+                  <span key={index} className="rounded-sm border border-[#bacdbc] bg-[#edf2e9] px-2.5 py-1 text-xs font-medium text-[#315e4c]">
                     {Array.isArray(entity) ? entity[0] : entity}
                   </span>
                 ))}
@@ -158,31 +158,31 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
   };
 
   return (
-    <Card className="paperiq-glass group relative overflow-hidden rounded-[24px] transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:shadow-2xl hover:shadow-black/20">
-      <div aria-hidden="true" className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${colorClasses[color].glow} to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100`} />
+    <Card className="paperiq-glass group relative overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#bfb4a0] hover:shadow-[7px_7px_0_#e3ddd0]">
+      <div aria-hidden="true" className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${colorClasses[color].glow} to-transparent opacity-45 transition-opacity duration-300 group-hover:opacity-80`} />
       <CardHeader className="relative pb-4">
         <div className="mb-4 flex items-center justify-between">
-          <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${colorClasses[color].icon}`}>{icon}</div>
+          <div className={`flex h-12 w-12 items-center justify-center rounded-sm border ${colorClasses[color].icon}`}>{icon}</div>
           {output ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300">
+            <span className="paperiq-stamp inline-flex items-center gap-1.5 text-[#315e4c]">
               <CheckCircle2 className="h-3.5 w-3.5" />
               Complete
             </span>
           ) : (
-            <span className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400">
-              <span className={`h-1.5 w-1.5 rounded-full ${disabled ? "bg-slate-600" : colorClasses[color].dot}`} />
-              {disabled ? "Waiting" : "Ready"}
+            <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#72776e]">
+              <span className={`h-1.5 w-1.5 rounded-full ${disabled ? "bg-[#c6c0b5]" : colorClasses[color].dot}`} />
+              {disabled ? "Queued" : `No. ${colorClasses[color].number}`}
             </span>
           )}
           </div>
-        <CardTitle className="text-lg font-semibold tracking-tight text-white">{title}</CardTitle>
-        <CardDescription className="pt-1 text-sm leading-6 text-slate-400">{description}</CardDescription>
+        <CardTitle className="paperiq-serif text-xl tracking-tight text-[#20372d]">{title}</CardTitle>
+        <CardDescription className="pt-1 text-sm leading-6 text-[#687168]">{description}</CardDescription>
       </CardHeader>
       <CardContent className="relative space-y-4 pt-1">
         <Button
           onClick={handleProcess}
           disabled={disabled || isProcessing}
-          className="h-11 w-full rounded-xl border border-white/10 bg-white/[0.055] text-sm font-medium text-white shadow-none transition-all hover:border-violet-400/35 hover:bg-violet-500/15 disabled:cursor-not-allowed disabled:opacity-45"
+          className="h-11 w-full rounded-sm border border-[#cfc7b8] bg-[#fffdf8] text-sm font-medium text-[#20372d] shadow-none transition-all hover:border-[#315e4c] hover:bg-[#eef2ea] disabled:cursor-not-allowed disabled:opacity-45"
         >
           {isProcessing ? (
             <>
@@ -200,8 +200,8 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
 
         {/* ✅ Use the new renderOutput function */}
         {output && (
-          <div className="mt-4 max-h-80 overflow-y-auto rounded-2xl border border-white/[0.07] bg-black/20 p-4">
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-violet-300">Analysis result</h4>
+          <div className="mt-4 max-h-80 overflow-y-auto rounded-sm border border-[#ddd5c6] bg-[#faf8f2] p-4">
+            <h4 className="mb-3 text-[11px] font-bold uppercase tracking-[0.17em] text-[#b6583b]">Field notes / Result</h4>
             {renderOutput(output)}
           </div>
         )}

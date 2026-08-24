@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ArrowUpRight, FileStack, ScanText, ShieldCheck, Sparkles, WandSparkles } from "lucide-react";
+import { ArrowUpRight, BookOpenText, FileSearch, Highlighter, ScanText } from "lucide-react";
 
 interface AuthShellProps {
   eyebrow: string;
@@ -9,82 +9,78 @@ interface AuthShellProps {
   footer: ReactNode;
 }
 
-const previewFeatures = [
-  { icon: ScanText, title: "Understand every page", detail: "Extract meaning, entities, and key themes." },
-  { icon: WandSparkles, title: "Summaries that make sense", detail: "Complete answers shaped around your document." },
-  { icon: ShieldCheck, title: "Your research, organized", detail: "A private workspace for intelligent analysis." },
-];
-
 const AuthShell = ({ eyebrow, title, description, children, footer }: AuthShellProps) => (
-  <main className="relative min-h-screen overflow-hidden bg-[#090d19]">
-    <div aria-hidden="true" className="paperiq-grid pointer-events-none absolute inset-0 opacity-70" />
-    <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-[-12rem] h-[32rem] w-[32rem] rounded-full bg-violet-600/20 blur-[120px] [animation:paperiq-pulse-glow_8s_ease-in-out_infinite]" />
-    <div aria-hidden="true" className="pointer-events-none absolute bottom-[-14rem] right-[-8rem] h-[32rem] w-[32rem] rounded-full bg-cyan-500/10 blur-[130px]" />
+  <main className="relative min-h-screen overflow-hidden bg-[#f7f4ec]">
+    <div aria-hidden="true" className="paperiq-grid pointer-events-none absolute inset-0 opacity-35" />
 
-    <div className="relative mx-auto grid min-h-screen max-w-[1440px] lg:grid-cols-[1.04fr_0.96fr]">
-      <section className="hidden flex-col justify-between border-r border-white/[0.07] px-12 py-11 lg:flex xl:px-20">
-        <div className="inline-flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/25">
-            <FileStack className="h-5 w-5 text-white" />
-          </span>
-          <div>
-            <p className="text-lg font-semibold tracking-tight text-white">PaperIQ</p>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Document intelligence</p>
+    <div className="relative mx-auto grid min-h-screen max-w-[1520px] lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="relative hidden overflow-hidden border-r border-[#d8d1c1] bg-[#173b31] px-12 py-10 lg:flex lg:flex-col lg:justify-between xl:px-20">
+        <div aria-hidden="true" className="absolute right-[-130px] top-[18%] h-[370px] w-[370px] rounded-full border border-[#f1eadc]/15" />
+        <div aria-hidden="true" className="absolute right-[-83px] top-[24%] h-[275px] w-[275px] rounded-full border border-[#f1eadc]/10" />
+
+        <div className="relative flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-sm bg-[#e97853] text-[#fffaf0]">
+              <BookOpenText className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="paperiq-serif text-2xl tracking-tight text-[#fffaf0]">PaperIQ</p>
+              <p className="text-[10px] uppercase tracking-[0.24em] text-[#c6c6ac]">Research atelier</p>
+            </div>
           </div>
+          <span className="paperiq-stamp -rotate-6 text-[#d9cb92]">Issue No. 01</span>
         </div>
 
-        <div className="max-w-xl [animation:paperiq-reveal_650ms_ease-out_both]">
-          <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-500/10 px-4 py-2 text-xs font-medium text-violet-200">
-            <Sparkles className="h-3.5 w-3.5" />
-            AI that reads between the lines
-          </span>
-          <h1 className="text-5xl font-semibold leading-[1.08] tracking-[-0.06em] text-white xl:text-6xl">
-            Your documents,
+        <div className="relative max-w-[580px] [animation:paperiq-reveal_650ms_ease-out_both]">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.28em] text-[#d9cb92]">A field guide to better thinking</p>
+          <h1 className="paperiq-serif text-[70px] leading-[0.95] tracking-[-0.065em] text-[#fffaf0] xl:text-[88px]">
+            Read less.
             <br />
-            <span className="paperiq-gradient-text">finally understood.</span>
+            <span className="italic text-[#e98b67]">Know more.</span>
           </h1>
-          <p className="mt-6 max-w-md text-[15px] leading-7 text-slate-400">
-            Turn dense PDFs and research papers into clear summaries, useful insights, and beautiful visualizations.
+          <p className="mt-7 max-w-[440px] text-sm leading-7 text-[#d8dbce]">
+            Give us your research papers, reports, and documents. We’ll find the ideas worth keeping.
           </p>
 
-          <div className="mt-10 space-y-3">
-            {previewFeatures.map(({ icon: Icon, title: featureTitle, detail }) => (
-              <div key={featureTitle} className="paperiq-glass flex items-center gap-4 rounded-2xl px-4 py-3.5">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.06] text-violet-300">
-                  <Icon className="h-4 w-4" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-slate-100">{featureTitle}</p>
-                  <p className="mt-0.5 truncate text-xs text-slate-400">{detail}</p>
-                </div>
-                <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-slate-500" />
-              </div>
-            ))}
+          <div className="relative mt-12 max-w-[440px] rotate-[-2deg] border border-[#ded8c9] bg-[#fffaf0] p-5 text-[#20372d] shadow-[10px_10px_0_rgba(0,0,0,0.18)] [animation:paperiq-float_6s_ease-in-out_infinite]">
+            <div className="mb-4 flex items-center justify-between border-b border-[#ded8c9] pb-3">
+              <span className="text-[10px] font-bold uppercase tracking-[0.22em]">Research notes</span>
+              <Highlighter className="h-4 w-4 text-[#e97853]" />
+            </div>
+            <p className="paperiq-serif text-lg italic">“The important details were there all along.”</p>
+            <div className="mt-4 flex items-center gap-4 text-xs text-[#59675c]">
+              <span className="flex items-center gap-1.5"><ScanText className="h-3.5 w-3.5" /> Extract</span>
+              <span className="flex items-center gap-1.5"><FileSearch className="h-3.5 w-3.5" /> Understand</span>
+              <span className="ml-auto flex items-center gap-1"><ArrowUpRight className="h-3.5 w-3.5" /> Explore</span>
+            </div>
           </div>
         </div>
 
-        <p className="text-xs tracking-wide text-slate-500">Built for researchers, builders, and curious minds.</p>
+        <div className="relative flex items-center justify-between border-t border-[#fffaf0]/20 pt-5 text-[11px] uppercase tracking-[0.18em] text-[#d8dbce]">
+          <span>Made for curious minds</span>
+          <span>Est. 2026</span>
+        </div>
       </section>
 
-      <section className="flex min-h-screen items-center justify-center px-5 py-12 sm:px-10 lg:px-16">
+      <section className="relative flex min-h-screen items-center justify-center px-5 py-12 sm:px-10 lg:px-16">
         <div className="w-full max-w-[430px] [animation:paperiq-reveal_650ms_ease-out_120ms_both]">
-          <div className="mb-10 flex items-center gap-3 lg:hidden">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600">
-              <FileStack className="h-5 w-5 text-white" />
+          <div className="mb-12 flex items-center gap-3 lg:hidden">
+            <span className="flex h-10 w-10 items-center justify-center bg-[#173b31] text-[#fffaf0]">
+              <BookOpenText className="h-5 w-5" />
             </span>
-            <span className="text-xl font-semibold tracking-tight text-white">PaperIQ</span>
+            <span className="paperiq-serif text-2xl text-[#173b31]">PaperIQ</span>
           </div>
 
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.19em] text-violet-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+          <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#b6583b]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#e97853]" />
             {eyebrow}
           </span>
-          <h2 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-white">{title}</h2>
-          <p className="mt-3 text-sm leading-6 text-slate-400">{description}</p>
+          <h2 className="paperiq-serif mt-5 text-5xl leading-[1.04] tracking-[-0.05em] text-[#20372d]">{title}</h2>
+          <p className="mt-3 max-w-[380px] text-sm leading-7 text-[#657066]">{description}</p>
 
           <div className="mt-9">{children}</div>
 
-          <div className="mt-8 border-t border-white/[0.08] pt-7 text-center text-sm text-slate-400">
+          <div className="mt-8 border-t border-[#ded8c9] pt-7 text-center text-sm text-[#657066]">
             {footer}
           </div>
         </div>
