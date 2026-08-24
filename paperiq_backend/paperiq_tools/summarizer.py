@@ -18,7 +18,7 @@ class GeminiSummarizer:
             raise ValueError("GEMINI_API_KEY is not configured")
 
         genai.configure(api_key=api_key)
-        self.model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").removeprefix("models/")
+        self.model_name = os.getenv("GEMINI_MODEL", "gemini-3.6-flash").removeprefix("models/")
         self.model = genai.GenerativeModel(
             self.model_name,
             generation_config={"temperature": 0.2, "max_output_tokens": 1800},
