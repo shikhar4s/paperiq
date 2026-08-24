@@ -2,50 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    --background: 228 38% 7%;
+    --foreground: 220 27% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card: 228 30% 11%;
+    --card-foreground: 220 27% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover: 228 30% 11%;
+    --popover-foreground: 220 27% 96%;
 
-    --primary: 217 91% 40%;
+    --primary: 250 94% 69%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 214 32% 91%;
-    --secondary-foreground: 215 25% 15%;
+    --secondary: 226 24% 16%;
+    --secondary-foreground: 220 27% 96%;
 
-    --muted: 214 32% 91%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 226 24% 16%;
+    --muted-foreground: 221 15% 65%;
 
-    --accent: 213 94% 68%;
+    --accent: 173 75% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 88%;
-    --input: 214 32% 88%;
-    --ring: 217 91% 40%;
+    --border: 227 21% 20%;
+    --input: 227 21% 20%;
+    --ring: 250 94% 69%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 215 25% 15%;
-    --sidebar-primary: 217 91% 40%;
+    --sidebar-background: 228 34% 9%;
+    --sidebar-foreground: 220 27% 96%;
+    --sidebar-primary: 250 94% 69%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 214 32% 91%;
-    --sidebar-accent-foreground: 215 25% 15%;
-    --sidebar-border: 214 32% 88%;
-    --sidebar-ring: 217 91% 40%;
+    --sidebar-accent: 226 24% 16%;
+    --sidebar-accent-foreground: 220 27% 96%;
+    --sidebar-border: 227 21% 20%;
+    --sidebar-ring: 250 94% 69%;
   }
 
   .dark {
@@ -94,6 +90,76 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    min-width: 320px;
+  }
+
+  ::selection {
+    background: hsl(250 94% 69% / 0.32);
+  }
+}
+
+@layer components {
+  .paperiq-grid {
+    background-image:
+      linear-gradient(hsl(220 30% 96% / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(220 30% 96% / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+  }
+
+  .paperiq-glass {
+    background: linear-gradient(145deg, hsl(228 30% 15% / 0.84), hsl(228 32% 10% / 0.92));
+    border: 1px solid hsl(220 35% 95% / 0.08);
+    box-shadow: 0 18px 65px hsl(230 50% 3% / 0.28);
+    backdrop-filter: blur(18px);
+  }
+
+  .paperiq-gradient-text {
+    background: linear-gradient(110deg, hsl(250 100% 78%), hsl(192 90% 65%) 58%, hsl(170 83% 58%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .paperiq-field {
+    @apply h-12 rounded-xl border-white/10 bg-white/[0.045] px-4 text-white placeholder:text-slate-500;
+    @apply focus-visible:border-violet-400/70 focus-visible:ring-violet-400/20;
+  }
+
+  .paperiq-primary-button {
+    @apply h-12 rounded-xl text-sm font-semibold text-white transition-all duration-300;
+    background: linear-gradient(115deg, hsl(250 94% 64%), hsl(266 88% 66%));
+    box-shadow: 0 10px 32px hsl(254 88% 60% / 0.3);
+  }
+
+  .paperiq-primary-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 38px hsl(254 88% 60% / 0.38);
+  }
+}
+
+@keyframes paperiq-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes paperiq-pulse-glow {
+  0%, 100% { opacity: 0.48; transform: scale(1); }
+  50% { opacity: 0.78; transform: scale(1.09); }
+}
+
+@keyframes paperiq-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -3,17 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { toast } from "sonner";
-import { FileText } from "lucide-react";
-import { registerUser } from "../api/paperiqApi"; // ✅ Import API function
+import { ArrowRight, LockKeyhole, Mail, UserRound } from "lucide-react";
+import AuthShell from "@/components/auth/AuthShell";
+import { registerUser } from "../api/paperiqApi";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -46,80 +39,58 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-3 text-center">
-          <div className="flex justify-center mb-2">
-            <div className="p-3 bg-primary rounded-lg">
-              <FileText className="h-8 w-8 text-primary-foreground" />
-            </div>
+    <AuthShell
+      eyebrow="Start exploring"
+      title="Create your workspace"
+      description="One account is all you need to turn complex documents into useful answers."
+      footer={(
+        <>
+          Already have an account?{" "}
+          <Link to="/login" className="font-semibold text-violet-300 transition-colors hover:text-violet-200">
+            Sign in
+          </Link>
+        </>
+      )}
+    >
+      <form onSubmit={handleSignup} className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="name" className="text-sm font-medium text-slate-200">Full name</Label>
+          <div className="relative">
+            <UserRound className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Input id="name" type="text" autoComplete="name" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} className="paperiq-field pl-11" required />
           </div>
-          <CardTitle className="text-3xl font-bold">Create Account</CardTitle>
-          <CardDescription>
-            Sign up to get started with PaperIQ
-          </CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSignup}>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="Your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                placeholder="••••••••"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Sign Up"}
-            </Button>
-            <p className="text-sm text-muted-foreground text-center">
-              Already have an account?{" "}
-              <Link to="/login" className="text-primary hover:underline">
-                Sign in
-              </Link>
-            </p>
-          </CardFooter>
-        </form>
-      </Card>
-    </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="email" className="text-sm font-medium text-slate-200">Email address</Label>
+          <div className="relative">
+            <Mail className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Input id="email" type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="paperiq-field pl-11" required />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="password" className="text-sm font-medium text-slate-200">Password</Label>
+          <div className="relative">
+            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Input id="password" type="password" autoComplete="new-password" placeholder="Create a strong password" value={password} onChange={(e) => setPassword(e.target.value)} className="paperiq-field pl-11" required />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="confirmPassword" className="text-sm font-medium text-slate-200">Confirm password</Label>
+          <div className="relative">
+            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Input id="confirmPassword" type="password" autoComplete="new-password" placeholder="Repeat your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="paperiq-field pl-11" required />
+          </div>
+        </div>
+
+        <Button type="submit" className="paperiq-primary-button mt-2 w-full" disabled={isLoading}>
+          {isLoading ? "Creating your workspace..." : "Create free account"}
+          {!isLoading ? <ArrowRight className="ml-2 h-4 w-4" /> : null}
+        </Button>
+      </form>
+    </AuthShell>
   );
 };
 

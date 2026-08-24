@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { FileText } from "lucide-react";
-import {loginUser} from '../api/paperiqApi';
+import { ArrowRight, LockKeyhole, Mail } from "lucide-react";
+import AuthShell from "@/components/auth/AuthShell";
+import { loginUser } from "../api/paperiqApi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,75 +14,80 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       const user = await loginUser(email, password);
       toast.success(`Welcome back, ${user.name}!`);
-      setIsLoading(false);
       navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
       if (error.response?.data?.error) {
         toast.error(error.response.data.error);
       } else {
         toast.error("Login failed. Please try again.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-3 text-center">
-          <div className="flex justify-center mb-2">
-            <div className="p-3 bg-primary rounded-lg">
-              <FileText className="h-8 w-8 text-primary-foreground" />
-            </div>
+    <AuthShell
+      eyebrow="Welcome back"
+      title="Sign in to PaperIQ"
+      description="Pick up where you left off and discover what your documents have to say."
+      footer={(
+        <>
+          New to PaperIQ?{" "}
+          <Link to="/signup" className="font-semibold text-violet-300 transition-colors hover:text-violet-200">
+            Create an account
+          </Link>
+        </>
+      )}
+    >
+      <form onSubmit={handleLogin} className="space-y-5">
+        <div className="space-y-2.5">
+          <Label htmlFor="email" className="text-sm font-medium text-slate-200">Email address</Label>
+          <div className="relative">
+            <Mail className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="paperiq-field pl-11"
+              required
+            />
           </div>
-          <CardTitle className="text-3xl font-bold">PaperIQ</CardTitle>
-          <CardDescription>Sign in to your account to continue</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleLogin}>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign In"}
-            </Button>
-            <p className="text-sm text-muted-foreground text-center">
-              Don't have an account?{" "}
-              <Link to="/signup" className="text-primary hover:underline">
-                Sign up
-              </Link>
-            </p>
-          </CardFooter>
-        </form>
-      </Card>
-    </div>
+        </div>
+
+        <div className="space-y-2.5">
+          <Label htmlFor="password" className="text-sm font-medium text-slate-200">Password</Label>
+          <div className="relative">
+            <LockKeyhole className="pointer-events-none absolute left-4 top-3.5 h-4 w-4 text-slate-500" />
+            <Input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="paperiq-field pl-11"
+              required
+            />
+          </div>
+        </div>
+
+        <Button type="submit" className="paperiq-primary-button mt-2 w-full" disabled={isLoading}>
+          {isLoading ? "Signing you in..." : "Enter your workspace"}
+          {!isLoading ? <ArrowRight className="ml-2 h-4 w-4" /> : null}
+        </Button>
+      </form>
+    </AuthShell>
   );
 };
 

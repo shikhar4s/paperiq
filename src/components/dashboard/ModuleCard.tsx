@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, LockKeyhole } from "lucide-react";
 
 interface ModuleCardProps {
   title: string;
@@ -14,10 +14,10 @@ interface ModuleCardProps {
 }
 
 const colorClasses = {
-  blue: "bg-blue-500/10 text-blue-600",
-  purple: "bg-purple-500/10 text-purple-600",
-  amber: "bg-amber-500/10 text-amber-600",
-  green: "bg-green-500/10 text-green-600",
+  blue: { icon: "border-sky-400/20 bg-sky-400/10 text-sky-300", glow: "from-sky-400/10", dot: "bg-sky-400" },
+  purple: { icon: "border-violet-400/20 bg-violet-400/10 text-violet-300", glow: "from-violet-400/10", dot: "bg-violet-400" },
+  amber: { icon: "border-amber-400/20 bg-amber-400/10 text-amber-300", glow: "from-amber-400/10", dot: "bg-amber-400" },
+  green: { icon: "border-emerald-400/20 bg-emerald-400/10 text-emerald-300", glow: "from-emerald-400/10", dot: "bg-emerald-400" },
 };
 
 const formatInlineMarkdown = (text: string): ReactNode[] =>
@@ -116,7 +116,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               <h5 className="font-semibold text-sm mb-2 text-foreground">Keywords:</h5>
               <div className="flex flex-wrap gap-2">
                 {outputData.keywords.map((keyword: string, index: number) => (
-                  <span key={index} className="px-2 py-1 bg-amber-500/10 text-amber-700 text-xs font-medium rounded-full">
+                  <span key={index} className="rounded-full border border-amber-400/15 bg-amber-400/10 px-2.5 py-1 text-xs font-medium text-amber-200">
                     {keyword}
                   </span>
                 ))}
@@ -128,7 +128,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               <h5 className="font-semibold text-sm mb-2 text-foreground">Entities:</h5>
               <div className="flex flex-wrap gap-2">
                 {outputData.entities.map((entity: string | [string, string], index: number) => (
-                  <span key={index} className="px-2 py-1 bg-purple-500/10 text-purple-700 text-xs font-medium rounded-full">
+                  <span key={index} className="rounded-full border border-violet-400/15 bg-violet-400/10 px-2.5 py-1 text-xs font-medium text-violet-200">
                     {Array.isArray(entity) ? entity[0] : entity}
                   </span>
                 ))}
@@ -158,23 +158,31 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
   };
 
   return (
-    <Card className="overflow-hidden">
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <div className={`p-3 rounded-lg ${colorClasses[color]}`}>{icon}</div>
-            <div>
-              <CardTitle className="text-lg">{title}</CardTitle>
-              <CardDescription className="mt-1">{description}</CardDescription>
-            </div>
+    <Card className="paperiq-glass group relative overflow-hidden rounded-[24px] transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:shadow-2xl hover:shadow-black/20">
+      <div aria-hidden="true" className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${colorClasses[color].glow} to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100`} />
+      <CardHeader className="relative pb-4">
+        <div className="mb-4 flex items-center justify-between">
+          <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${colorClasses[color].icon}`}>{icon}</div>
+          {output ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300">
+              <CheckCircle2 className="h-3.5 w-3.5" />
+              Complete
+            </span>
+          ) : (
+            <span className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400">
+              <span className={`h-1.5 w-1.5 rounded-full ${disabled ? "bg-slate-600" : colorClasses[color].dot}`} />
+              {disabled ? "Waiting" : "Ready"}
+            </span>
+          )}
           </div>
-        </div>
+        <CardTitle className="text-lg font-semibold tracking-tight text-white">{title}</CardTitle>
+        <CardDescription className="pt-1 text-sm leading-6 text-slate-400">{description}</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="relative space-y-4 pt-1">
         <Button
           onClick={handleProcess}
           disabled={disabled || isProcessing}
-          className="w-full"
+          className="h-11 w-full rounded-xl border border-white/10 bg-white/[0.055] text-sm font-medium text-white shadow-none transition-all hover:border-violet-400/35 hover:bg-violet-500/15 disabled:cursor-not-allowed disabled:opacity-45"
         >
           {isProcessing ? (
             <>
@@ -182,14 +190,18 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               Processing...
             </>
           ) : (
-            "Run Module"
+            <>
+              {disabled ? <LockKeyhole className="mr-2 h-3.5 w-3.5" /> : null}
+              {output ? "Run again" : disabled ? "Complete previous step" : "Run analysis"}
+              {!disabled ? <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" /> : null}
+            </>
           )}
         </Button>
 
         {/* ✅ Use the new renderOutput function */}
         {output && (
-          <div className="mt-4 max-h-80 overflow-y-auto rounded-lg bg-secondary p-4">
-            <h4 className="font-semibold text-foreground mb-2">Output:</h4>
+          <div className="mt-4 max-h-80 overflow-y-auto rounded-2xl border border-white/[0.07] bg-black/20 p-4">
+            <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-violet-300">Analysis result</h4>
             {renderOutput(output)}
           </div>
         )}
