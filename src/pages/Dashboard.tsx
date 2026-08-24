@@ -151,9 +151,9 @@ const Dashboard = () => {
       setCleanText(res.clean_text);
       setResults((prev) => ({ ...prev, preprocess: res }));
       toast.success("Preprocessing complete!");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      toast.error("Error in preprocessing module");
+      toast.error(err?.response?.data?.error || "Error in preprocessing module");
     }
   };
 
@@ -166,9 +166,9 @@ const Dashboard = () => {
       const res = await extractInsights(cleanText);
       setResults((prev) => ({ ...prev, extract: res }));
       toast.success("Insight extraction complete!");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      toast.error("Error in extraction module");
+      toast.error(err?.response?.data?.error || "Error in extraction module");
     }
   };
 
@@ -181,9 +181,9 @@ const Dashboard = () => {
       const res = await summarizeFile(uploadedFile);
       setResults((prev) => ({ ...prev, summarize: res }));
       toast.success("Summarization complete!");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      toast.error("Error in summarization module");
+      toast.error(err?.response?.data?.error || "Error in summarization module");
     }
   };
 

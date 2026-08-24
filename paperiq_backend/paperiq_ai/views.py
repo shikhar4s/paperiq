@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 import os
 import json
 import datetime
+import logging
 
 # --- Import your models to interact with the database ---
 from .models import User, DocumentData, Entity
@@ -20,6 +21,7 @@ from mongoengine.errors import DoesNotExist, ValidationError
 _pipeline = None
 _extractor = None
 _summarizer = None
+logger = logging.getLogger(__name__)
 
 
 def _get_pipeline():
@@ -170,6 +172,13 @@ def summarize_text(request):
         })
 
     except Exception as e:
+        logger.exception("Document summarization failed")
+        from paperiq_tools.summarizer import SummarizationError
+        if isinstance(e, SummarizationError):
+            return JsonResponse(
+                {"error": "The AI summarization service could not process this document. Please try again."},
+                status=502,
+            )
         return JsonResponse({"error": f"An unexpected error occurred: {str(e)}"}, status=500)
     finally:
         if file_path and default_storage.exists(file_path):

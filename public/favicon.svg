@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="paperiq" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#paperiq)"/>
+  <path d="M18 12h21l9 9v31H18z" fill="#fff"/>
+  <path d="M39 12v10h9" fill="#c7d2fe"/>
+  <path d="M25 29h16M25 35h16M25 41h9" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="43" cy="44" r="9" fill="#111827"/>
+  <text x="43" y="47.3" fill="#fff" font-family="Arial,sans-serif" font-size="8" font-weight="700" text-anchor="middle">IQ</text>
+</svg>

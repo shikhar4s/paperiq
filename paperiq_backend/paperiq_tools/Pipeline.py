@@ -1,66 +1,74 @@
 import os
-import docx
-import fitz  
 import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
+import unicodedata
 
-nltk.download("stopwords")
-nltk.download("wordnet")
+import docx
+import fitz
+
 
 class DocumentPipeline:
+    """Extract and normalize documents without destroying semantic context."""
+
+    _CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+    _PAGE_NUMBER = re.compile(r"(?im)^\s*(?:page\s+)?\d+(?:\s+of\s+\d+)?\s*$")
+
     def __init__(self):
         self.documents = {}
-        self.stop_words = set(stopwords.words("english"))
-        self.lemmatizer = WordNetLemmatizer()
 
     def ingest_pdf(self, file_path):
-        doc = fitz.open(file_path)
-        text = "".join([page.get_text() for page in doc])
-        return text
+        with fitz.open(file_path) as document:
+            return "\n\n".join(page.get_text("text", sort=True) for page in document)
 
     def ingest_docx(self, file_path):
-        doc = docx.Document(file_path)
-        text = "\n".join([para.text for para in doc.paragraphs])
-        return text
+        document = docx.Document(file_path)
+        blocks = [paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()]
+        for table in document.tables:
+            for row in table.rows:
+                values = [cell.text.strip() for cell in row.cells]
+                if any(values):
+                    blocks.append(" | ".join(values))
+        return "\n".join(blocks)
 
     def ingest_txt(self, file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
-            return f.read()
+        with open(file_path, "r", encoding="utf-8", errors="replace") as file:
+            return file.read()
 
     def ingest_document(self, file_path):
-        ext = os.path.splitext(file_path)[1].lower()
-        if ext == ".pdf":
-            text = self.ingest_pdf(file_path)
-        elif ext == ".docx":
-            text = self.ingest_docx(file_path)
-        elif ext == ".txt":
-            text = self.ingest_txt(file_path)
-        else:
-            raise ValueError("Unsupported file format: " + ext)
-        
+        extension = os.path.splitext(file_path)[1].lower()
+        readers = {
+            ".pdf": self.ingest_pdf,
+            ".docx": self.ingest_docx,
+            ".txt": self.ingest_txt,
+        }
+        if extension not in readers:
+            raise ValueError(f"Unsupported file format: {extension or 'unknown'}")
+
+        text = readers[extension](file_path)
+        if not text or not text.strip():
+            raise ValueError("The document does not contain extractable text")
         self.documents[file_path] = text
         return text
-    
 
     def clean_text(self, text):
-        text = text.lower()                            
-        text = re.sub(r'[^a-z\s]', '', text)           
-        tokens = text.split()                          
-        tokens = [w for w in tokens if w not in self.stop_words]  
-        tokens = [self.lemmatizer.lemmatize(w) for w in tokens]   
-        return " ".join(tokens)
+        """Normalize extraction noise while preserving names, numbers and sentences.
+
+        Lowercasing, punctuation stripping, stop-word removal and lemmatization are
+        intentionally avoided: they reduce summary quality and erase context needed
+        by named-entity recognition.
+        """
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError("Text must be a non-empty string")
+
+        text = unicodedata.normalize("NFKC", text)
+        text = text.replace("\r\n", "\n").replace("\r", "\n")
+        text = text.replace("\u00ad", "")
+        text = self._CONTROL_CHARS.sub(" ", text)
+        text = re.sub(r"(?<=\w)-\s*\n\s*(?=\w)", "", text)
+        text = self._PAGE_NUMBER.sub("", text)
+        text = re.sub(r"[ \t]+", " ", text)
+        text = re.sub(r" *\n *", "\n", text)
+        text = re.sub(r"\n{3,}", "\n\n", text)
+        return text.strip()
 
     def process_document(self, file_path):
-        raw_text = self.ingest_document(file_path)
-        clean_text = self.clean_text(raw_text)
-        return clean_text
-    
-
-# if __name__ == "__main__":
-#     pipeline = DocumentPipeline()
-#     result = pipeline.process_document("research paper 3.pdf")
-    
-#     print("Processed Text (Preview):")
-#     print(result[:500])
+        return self.clean_text(self.ingest_document(file_path))
