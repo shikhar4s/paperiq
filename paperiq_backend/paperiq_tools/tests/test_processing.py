@@ -35,6 +35,36 @@ class SummarizerTests(unittest.TestCase):
         summarizer = self.build_summarizer()
         self.assertEqual(summarizer.summarize("Short document"), "Useful summary")
         self.assertEqual(post.call_count, 1)
+        self.assertEqual(post.call_args.kwargs["json"]["generationConfig"]["maxOutputTokens"], 4096)
+
+    @patch("paperiq_tools.summarizer.requests.post")
+    def test_truncated_response_continues_remaining_sections(self, post):
+        post.side_effect = [
+            Mock(
+                ok=True,
+                json=lambda: {
+                    "candidates": [{
+                        "content": {"parts": [{"text": "### Experience\nBuilt document tools."}]},
+                        "finishReason": "MAX_TOKENS",
+                    }],
+                },
+            ),
+            Mock(
+                ok=True,
+                json=lambda: {
+                    "candidates": [{
+                        "content": {"parts": [{"text": "### Projects\nCreated PaperIQ."}]},
+                        "finishReason": "STOP",
+                    }],
+                },
+            ),
+        ]
+
+        result = self.build_summarizer().summarize("Experience and projects across the document")
+
+        self.assertIn("### Experience", result)
+        self.assertIn("### Projects", result)
+        self.assertEqual(post.call_count, 2)
 
     @patch("paperiq_tools.summarizer.requests.post")
     def test_model_failure_returns_real_local_summary(self, post):

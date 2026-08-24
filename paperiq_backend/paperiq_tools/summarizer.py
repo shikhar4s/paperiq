@@ -44,7 +44,7 @@ class GeminiSummarizer:
         if text:
             yield text
 
-    def _generate(self, prompt, retries=2):
+    def _request_generation(self, prompt, retries=2):
         for attempt in range(retries):
             try:
                 response = requests.post(
@@ -52,7 +52,7 @@ class GeminiSummarizer:
                     headers={"x-goog-api-key": self.api_key},
                     json={
                         "contents": [{"parts": [{"text": prompt}]}],
-                        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1800},
+                        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 4096},
                     },
                     timeout=(5, 20),
                 )
@@ -60,11 +60,12 @@ class GeminiSummarizer:
                     detail = response.json().get("error", {}).get("message", response.text)
                     raise SummarizationError(f"Google Gemini returned {response.status_code}: {detail}")
                 payload = response.json()
-                parts = payload.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+                candidate = payload.get("candidates", [{}])[0]
+                parts = candidate.get("content", {}).get("parts", [])
                 result = "\n".join(part.get("text", "") for part in parts).strip()
                 if not result:
                     raise SummarizationError("Gemini returned an empty response")
-                return result
+                return result, candidate.get("finishReason", "STOP")
             except Exception as error:
                 message = str(error).lower()
                 transient = any(code in message for code in ("429", "500", "502", "503", "504", "timeout"))
@@ -72,6 +73,22 @@ class GeminiSummarizer:
                     time.sleep(2 ** attempt)
                     continue
                 raise SummarizationError(f"Gemini summarization failed: {error}") from error
+
+    def _generate(self, prompt, retries=2):
+        result, finish_reason = self._request_generation(prompt, retries)
+        if finish_reason != "MAX_TOKENS":
+            return result
+
+        print("Gemini reached its output limit; completing the remaining document sections.")
+        continuation, _ = self._request_generation(
+            "Your previous summary stopped before it was finished. Continue immediately "
+            "from its final words, without repeating completed sections. Cover all remaining "
+            "parts of the original document and end with a complete sentence.\n\n"
+            f"ORIGINAL REQUEST:\n{prompt}\n\n"
+            f"PREVIOUS SUMMARY ENDING:\n{result[-3000:]}",
+            retries,
+        )
+        return f"{result}\n\n{continuation}"
 
     @staticmethod
     def _extractive_summary(text, max_sentences=5, max_characters=1200):
@@ -106,9 +123,16 @@ class GeminiSummarizer:
     def _summarize_chunk(self, text):
         try:
             return self._generate(
-                "You are a precise research assistant. Summarize the document section below. "
-                "Preserve important names, numbers, methods, findings, limitations, and conclusions. "
-                "Do not invent information. Use clear paragraphs and concise bullet points when useful.\n\n"
+                "You are a precise document analyst. Read the ENTIRE document section below "
+                "before writing a complete but concise summary of every important section, "
+                "including information near the end. For a resume, cover the professional "
+                "profile, technical skills, education, every relevant position, notable "
+                "projects, certifications, and achievements when present. For research or "
+                "business documents, cover the purpose, methods, evidence, findings, "
+                "limitations, and conclusions. Preserve meaningful names, numbers, dates, "
+                "and outcomes, but do not copy contact details or invent information. Use "
+                "clear Markdown headings and concise bullet points. Aim for 250-450 words, "
+                "prioritize complete coverage, and finish with a complete sentence.\n\n"
                 f"DOCUMENT SECTION:\n{text}"
             )
         except SummarizationError as error:
@@ -130,8 +154,10 @@ class GeminiSummarizer:
         try:
             return self._generate(
                 "Combine the section summaries below into one coherent, non-repetitive final summary. "
-                "Retain the document's key methods, evidence, findings, limitations, and conclusions. "
-                "Do not add facts that are absent from the sections.\n\n"
+                "Cover information from the beginning, middle, and end without omitting "
+                "education, experience, projects, achievements, methods, evidence, findings, "
+                "limitations, or conclusions when present. Use clear Markdown headings and "
+                "concise bullet points. Do not add facts that are absent from the sections.\n\n"
                 f"SECTION SUMMARIES:\n{combined}"
             )
         except SummarizationError as error:

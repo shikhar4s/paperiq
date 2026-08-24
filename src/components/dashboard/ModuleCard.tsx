@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -6,10 +6,10 @@ import { Loader2 } from "lucide-react";
 interface ModuleCardProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   color: "blue" | "purple" | "amber" | "green";
   disabled?: boolean;
-  onProcess: () => Promise<void>;
+  onProcess: () => Promise<void> | void;
   output?: any; // To receive results from the parent
 }
 
@@ -19,6 +19,47 @@ const colorClasses = {
   amber: "bg-amber-500/10 text-amber-600",
   green: "bg-green-500/10 text-green-600",
 };
+
+const formatInlineMarkdown = (text: string): ReactNode[] =>
+  text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).map((part, index) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={`${part}-${index}`} className="font-semibold text-foreground">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+
+const FormattedSummary = ({ summary }: { summary: string }) => (
+  <div className="space-y-3 text-sm leading-6 text-muted-foreground">
+    {summary.split("\n").map((line, index) => {
+      const trimmed = line.trim();
+      if (!trimmed || /^[-*_]{3,}$/.test(trimmed)) return null;
+
+      const heading = trimmed.match(/^#{1,4}\s+(.+)$/);
+      if (heading) {
+        return (
+          <h6 key={`heading-${index}`} className="pt-2 text-sm font-semibold text-foreground">
+            {formatInlineMarkdown(heading[1])}
+          </h6>
+        );
+      }
+
+      const bullet = trimmed.match(/^(?:[-*•]|\d+\.)\s+(.+)$/);
+      if (bullet) {
+        return (
+          <div key={`bullet-${index}`} className="flex gap-2 pl-1">
+            <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            <span>{formatInlineMarkdown(bullet[1])}</span>
+          </div>
+        );
+      }
+
+      return <p key={`paragraph-${index}`}>{formatInlineMarkdown(trimmed)}</p>;
+    })}
+  </div>
+);
 
 const ModuleCard = ({ title, description, icon, color, disabled, onProcess, output }: ModuleCardProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -86,9 +127,9 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
              <div>
               <h5 className="font-semibold text-sm mb-2 text-foreground">Entities:</h5>
               <div className="flex flex-wrap gap-2">
-                {outputData.entities.map((entity: string, index: number) => (
+                {outputData.entities.map((entity: string | [string, string], index: number) => (
                   <span key={index} className="px-2 py-1 bg-purple-500/10 text-purple-700 text-xs font-medium rounded-full">
-                    {entity}
+                    {Array.isArray(entity) ? entity[0] : entity}
                   </span>
                 ))}
               </div>
@@ -103,7 +144,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
         return (
             <div>
               <h5 className="font-semibold text-sm mb-2 text-foreground">Summary:</h5>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{outputData.summary}</p>
+              <FormattedSummary summary={outputData.summary} />
             </div>
           );
     }
@@ -147,7 +188,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
 
         {/* ✅ Use the new renderOutput function */}
         {output && (
-          <div className="mt-4 p-4 bg-secondary rounded-lg max-h-60 overflow-y-auto">
+          <div className="mt-4 max-h-80 overflow-y-auto rounded-lg bg-secondary p-4">
             <h4 className="font-semibold text-foreground mb-2">Output:</h4>
             {renderOutput(output)}
           </div>
