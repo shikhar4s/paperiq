@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Loader2, LockKeyhole } from "lucide-react";
 
@@ -14,10 +13,10 @@ interface ModuleCardProps {
 }
 
 const colorClasses = {
-  blue: { icon: "border-[#afc7d0] bg-[#e8f0f2] text-[#355969]", glow: "from-[#dbe9ed]", dot: "bg-[#52788a]", number: "01" },
-  purple: { icon: "border-[#cfbea6] bg-[#f3ede3] text-[#775c40]", glow: "from-[#f2e9d9]", dot: "bg-[#9b7650]", number: "02" },
-  amber: { icon: "border-[#e8c892] bg-[#fbf1dc] text-[#946617]", glow: "from-[#f9efd5]", dot: "bg-[#c38729]", number: "03" },
-  green: { icon: "border-[#b5cbbb] bg-[#e9f0e8] text-[#315e4c]", glow: "from-[#e3ece2]", dot: "bg-[#527a60]", number: "04" },
+  blue: { icon: "border-[#afc7d0] bg-[#e8f0f2] text-[#355969]", dot: "bg-[#52788a]", number: "01" },
+  purple: { icon: "border-[#cfbea6] bg-[#f3ede3] text-[#775c40]", dot: "bg-[#9b7650]", number: "02" },
+  amber: { icon: "border-[#e8c892] bg-[#fbf1dc] text-[#946617]", dot: "bg-[#c38729]", number: "03" },
+  green: { icon: "border-[#b5cbbb] bg-[#e9f0e8] text-[#315e4c]", dot: "bg-[#527a60]", number: "04" },
 };
 
 const formatInlineMarkdown = (text: string): ReactNode[] =>
@@ -158,31 +157,32 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
   };
 
   return (
-    <Card className="paperiq-glass group relative overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#bfb4a0] hover:shadow-[7px_7px_0_#e3ddd0]">
-      <div aria-hidden="true" className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${colorClasses[color].glow} to-transparent opacity-45 transition-opacity duration-300 group-hover:opacity-80`} />
-      <CardHeader className="relative pb-4">
-        <div className="mb-4 flex items-center justify-between">
-          <div className={`flex h-12 w-12 items-center justify-center rounded-sm border ${colorClasses[color].icon}`}>{icon}</div>
-          {output ? (
-            <span className="paperiq-stamp inline-flex items-center gap-1.5 text-[#315e4c]">
-              <CheckCircle2 className="h-3.5 w-3.5" />
-              Complete
-            </span>
-          ) : (
-            <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#72776e]">
-              <span className={`h-1.5 w-1.5 rounded-full ${disabled ? "bg-[#c6c0b5]" : colorClasses[color].dot}`} />
-              {disabled ? "Queued" : `No. ${colorClasses[color].number}`}
-            </span>
-          )}
+    <article className="group relative border-b border-[#ded8ca] bg-[#fffefa] transition-colors duration-200 last:border-b-0 hover:bg-[#fbf8f0]">
+      <div className="grid gap-4 px-4 py-5 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:items-center sm:px-5">
+        <div className={`flex h-12 w-12 items-center justify-center rounded-full border ${colorClasses[color].icon}`}>{icon}</div>
+
+        <div className="min-w-0">
+          <div className="mb-1.5 flex flex-wrap items-center gap-2">
+            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8a8378]">Step {colorClasses[color].number}</span>
+            {output ? (
+              <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#315e4c]">
+                <CheckCircle2 className="h-3 w-3" /> Complete
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#8a8378]">
+                <span className={`h-1.5 w-1.5 rounded-full ${disabled ? "bg-[#c6c0b5]" : colorClasses[color].dot}`} />
+                {disabled ? "Waiting" : "Ready"}
+              </span>
+            )}
           </div>
-        <CardTitle className="paperiq-serif text-xl tracking-tight text-[#20372d]">{title}</CardTitle>
-        <CardDescription className="pt-1 text-sm leading-6 text-[#687168]">{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="relative space-y-4 pt-1">
+          <h3 className="text-[15px] font-semibold text-[#20372d]">{title}</h3>
+          <p className="mt-1 max-w-2xl text-xs leading-5 text-[#6f766d]">{description}</p>
+        </div>
+
         <Button
           onClick={handleProcess}
           disabled={disabled || isProcessing}
-          className="h-11 w-full rounded-sm border border-[#cfc7b8] bg-[#fffdf8] text-sm font-medium text-[#20372d] shadow-none transition-all hover:border-[#315e4c] hover:bg-[#eef2ea] disabled:cursor-not-allowed disabled:opacity-45"
+          className="h-10 w-full shrink-0 rounded-full border border-[#cfc7b8] bg-[#fffdf8] px-4 text-xs font-semibold text-[#20372d] shadow-none transition-all hover:border-[#315e4c] hover:bg-[#eef2ea] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
         >
           {isProcessing ? (
             <>
@@ -192,21 +192,20 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
           ) : (
             <>
               {disabled ? <LockKeyhole className="mr-2 h-3.5 w-3.5" /> : null}
-              {output ? "Run again" : disabled ? "Complete previous step" : "Run analysis"}
+              {output ? "Run again" : disabled ? "Locked" : "Run module"}
               {!disabled ? <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" /> : null}
             </>
           )}
         </Button>
+      </div>
 
-        {/* ✅ Use the new renderOutput function */}
-        {output && (
-          <div className="mt-4 max-h-80 overflow-y-auto rounded-sm border border-[#ddd5c6] bg-[#faf8f2] p-4">
-            <h4 className="mb-3 text-[11px] font-bold uppercase tracking-[0.17em] text-[#b6583b]">Field notes / Result</h4>
-            {renderOutput(output)}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {output ? (
+        <div className="mx-4 mb-5 max-h-80 overflow-y-auto rounded-sm border border-[#ddd5c6] bg-[#faf8f2] p-4 sm:ml-[5.25rem] sm:mr-5">
+          <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.17em] text-[#b6583b]">Module output</h4>
+          {renderOutput(output)}
+        </div>
+      ) : null}
+    </article>
   );
 };
 

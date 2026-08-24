@@ -14,10 +14,13 @@ import {
   Sparkles,
   Tags,
   FileStack,
-  ArrowUpRight,
   CheckCircle2,
   UserRound,
   Zap,
+  Home,
+  History,
+  LifeBuoy,
+  Plus,
 } from "lucide-react";
 import { toast } from "sonner";
 import FileUploadCard from "@/components/dashboard/FileUploadCard";
@@ -212,161 +215,170 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#f7f4ec]">
+    <div className="relative min-h-screen bg-[#f7f4ec]">
       <div aria-hidden="true" className="paperiq-grid pointer-events-none fixed inset-0 opacity-40" />
-      <div aria-hidden="true" className="pointer-events-none fixed -right-44 top-36 h-[31rem] w-[31rem] rounded-full border border-[#ddd6c7] opacity-60" />
-      <div aria-hidden="true" className="pointer-events-none fixed -right-32 top-48 h-[25rem] w-[25rem] rounded-full border border-[#ddd6c7] opacity-50" />
-
-      <header className="sticky top-0 z-30 border-b border-[#d8d1c1] bg-[#f7f4ec]/90 backdrop-blur-md">
-        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#e97853] shadow-[3px_3px_0_#d9d2c4]">
-              <FileStack className="h-5 w-5 text-white" />
+      <div className="relative min-h-screen lg:grid lg:grid-cols-[240px_minmax(0,1fr)]">
+        <aside className="z-30 border-b border-[#d8d1c1] bg-[#173b31] px-4 py-4 text-[#fffaf0] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-b-0 lg:border-r lg:border-[#2e5147] lg:px-5 lg:py-7">
+          <div className="flex items-center justify-between lg:block">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#e97853]">
+                <FileStack className="h-5 w-5" />
+              </span>
+              <div>
+                <h1 className="paperiq-serif text-2xl leading-none">PaperIQ</h1>
+                <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.22em] text-[#bfcabe]">Document lab</p>
+              </div>
             </div>
-            <div>
-              <h1 className="paperiq-serif text-2xl leading-none text-[#20372d]">PaperIQ</h1>
-              <p className="mt-1 hidden text-[9px] font-semibold uppercase tracking-[0.19em] text-[#837b6f] sm:block">Research atelier</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 sm:gap-4">
-            <span className="paperiq-stamp hidden items-center gap-2 text-[#315e4c] sm:inline-flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#527a60]" />
-              Desk open
-            </span>
-            <span className="hidden h-9 w-9 items-center justify-center rounded-full border border-[#d8d1c1] bg-[#fcfaf4] text-[#465a4f] sm:flex">
-              <UserRound className="h-4 w-4" />
-            </span>
-            <Button variant="ghost" onClick={handleLogout} className="h-9 rounded-sm border border-[#d8d1c1] px-3 text-[#465a4f] hover:bg-[#ece7db] hover:text-[#20372d]">
-              <LogOut className="h-4 w-4 sm:mr-2" />
-              <span className="hidden sm:inline">Sign out</span>
+            <Button variant="ghost" onClick={handleLogout} aria-label="Sign out" className="h-9 w-9 rounded-full border border-[#fffaf0]/20 p-0 text-[#fffaf0] hover:bg-[#fffaf0]/10 hover:text-white lg:hidden">
+              <LogOut className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-      </header>
 
-      <main className="relative mx-auto max-w-7xl px-4 pb-16 pt-9 sm:px-6 sm:pt-12 lg:px-8">
-        <section className="relative mb-9 overflow-hidden rounded-sm border border-[#b8c7b4] bg-[#e9eee4] px-6 py-9 shadow-[6px_6px_0_#ddd7ca] sm:px-10 sm:py-12">
-          <div aria-hidden="true" className="paperiq-serif pointer-events-none absolute -right-5 -top-16 text-[16rem] leading-none text-[#d7dfd2] sm:right-7">01</div>
-          <div aria-hidden="true" className="pointer-events-none absolute bottom-0 left-0 h-1.5 w-28 bg-[#e97853]" />
-          <div className="relative flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-            <div className="max-w-2xl">
-              <span className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#b6583b]">
-                <Sparkles className="h-3.5 w-3.5" />
-                The daily brief / research desk
-              </span>
-              <h2 className="paperiq-serif text-5xl leading-[0.98] tracking-[-0.055em] text-[#20372d] sm:text-6xl lg:text-7xl">
-                A little more clarity,<br /><span className="italic text-[#b6583b]">{userName}.</span>
-              </h2>
-              <p className="mt-4 max-w-lg text-sm leading-7 text-[#627064] sm:text-[15px]">
-                Bring us the pages. We will find the important threads, connect the notes, and give you the whole story.
-              </p>
-            </div>
+          <nav aria-label="Workspace navigation" className="mt-0 hidden space-y-1 lg:mt-12 lg:block">
+            <button type="button" className="flex w-full items-center gap-3 rounded-sm bg-[#fffaf0] px-3 py-2.5 text-left text-sm font-semibold text-[#173b31]">
+              <Home className="h-4 w-4" /> Current analysis
+            </button>
+            <span className="flex items-center gap-3 px-3 py-2.5 text-sm text-[#bfcabe]">
+              <History className="h-4 w-4" /> Recent documents
+            </span>
+          </nav>
 
-            <div className="flex shrink-0 items-center gap-3 rounded-sm border border-[#d8d1c1] bg-[#fbf9f3] px-4 py-3 shadow-[3px_3px_0_#d9d2c4]">
-              <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#fae9df] text-[#b6583b]">
-                <Zap className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-sm font-semibold text-[#263b31]">{completedSteps}/4 notes complete</p>
-                <p className="mt-0.5 text-xs text-[#777264]">{uploadedFile ? "The desk is at work" : "Your first page awaits"}</p>
+          <div className="mt-auto hidden lg:block">
+            <div className="mb-5 border border-[#fffaf0]/15 bg-[#fffaf0]/[0.06] p-4">
+              <div className="mb-3 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.16em] text-[#cad3c8]">
+                <span>Analysis progress</span><span>{completedSteps}/4</span>
               </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-[#fffaf0]/10">
+                <div className="h-full bg-[#e97853] transition-[width] duration-500" style={{ width: `${completedSteps * 25}%` }} />
+              </div>
+              <p className="mt-3 text-xs leading-5 text-[#bfcabe]">{uploadedFile ? "Your document is on the workbench." : "Upload a document to begin."}</p>
+            </div>
+            <div className="flex items-center gap-3 border-t border-[#fffaf0]/15 pt-5">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fffaf0]/10"><UserRound className="h-4 w-4" /></span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold">{userName}</p>
+                <p className="text-[10px] text-[#bfcabe]">Research workspace</p>
+              </div>
+              <Button variant="ghost" onClick={handleLogout} aria-label="Sign out" className="h-8 w-8 rounded-full p-0 text-[#bfcabe] hover:bg-[#fffaf0]/10 hover:text-white">
+                <LogOut className="h-4 w-4" />
+              </Button>
             </div>
           </div>
-        </section>
+        </aside>
 
-        <div className="mb-8 grid gap-6 xl:grid-cols-[1.5fr_0.8fr]">
-          <FileUploadCard onFileUpload={handleFileUpload} uploadedFile={uploadedFile} />
-
-          <section className="paperiq-glass rounded-sm p-5 sm:p-7">
-            <div className="mb-5 flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#b6583b]">Field checklist / No. 02</p>
-                <h3 className="paperiq-serif mt-2 text-2xl text-[#20372d]">The reading ritual.</h3>
+        <main className="relative min-w-0 px-4 pb-14 pt-6 sm:px-6 lg:px-8 lg:pt-8">
+          <header className="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-[#d8d1c1] pb-5">
+            <div>
+              <div className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#b6583b]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e97853]" /> Workspace / New analysis
               </div>
-              <ArrowUpRight className="h-4 w-4 text-[#827969]" />
+              <h2 className="paperiq-serif text-3xl tracking-[-0.04em] text-[#20372d] sm:text-4xl">Document workbench</h2>
             </div>
+            <Button type="button" onClick={() => document.getElementById("document-upload")?.click()} className="h-10 rounded-full bg-[#173b31] px-4 text-xs font-semibold text-[#fffaf0] hover:bg-[#214b3f]">
+              <Plus className="mr-2 h-4 w-4" /> Add document
+            </Button>
+          </header>
 
-            <div className="space-y-3">
-              {[
-                { label: "Upload your document", complete: Boolean(uploadedFile) },
-                { label: "Extract and clean the text", complete: Boolean(results.preprocess) },
-                { label: "Discover themes and entities", complete: Boolean(results.extract) },
-                { label: "Generate a complete summary", complete: Boolean(results.summarize) },
-              ].map(({ label, complete }, index) => (
-                <div key={label} className="flex items-center gap-3 rounded-sm border border-[#e5dfd2] bg-[#fbf9f3] px-3 py-3">
-                  {complete ? (
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-[#527a60]" />
-                  ) : (
-                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[#c7c0b2] text-[9px] text-[#817a6e]">{index + 1}</span>
-                  )}
-                  <span className={`text-sm ${complete ? "text-[#315e4c]" : "text-[#777264]"}`}>{label}</span>
+          <div className="grid gap-6 2xl:grid-cols-[minmax(0,1fr)_310px]">
+            <div className="min-w-0 space-y-6">
+              <FileUploadCard onFileUpload={handleFileUpload} uploadedFile={uploadedFile} />
+
+              <section className="overflow-hidden border border-[#d8d1c1] bg-[#fffefa] shadow-[4px_4px_0_#e3ddd0]">
+                <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[#d8d1c1] bg-[#f1eee5] px-5 py-4">
+                  <div>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.19em] text-[#b6583b]">Processing pipeline</p>
+                    <h3 className="mt-1 text-base font-semibold text-[#20372d]">Move from raw pages to clear answers</h3>
+                  </div>
+                  <span className="text-xs text-[#777264]">Run each available module in order</span>
                 </div>
-              ))}
+
+                <ModuleCard
+                  title="Ingestion"
+                  description="Read every page and capture the original content without losing context."
+                  icon={<Database className="h-5 w-5" />}
+                  color="blue"
+                  disabled={!uploadedFile}
+                  onProcess={handleIngest}
+                  output={results.ingestion}
+                />
+                <ModuleCard
+                  title="Preprocessing"
+                  description="Remove extraction noise while preserving meaningful names, dates, and details."
+                  icon={<Settings className="h-5 w-5" />}
+                  color="purple"
+                  disabled={!rawText}
+                  onProcess={handlePreprocess}
+                  output={results.preprocess}
+                />
+                <ModuleCard
+                  title="Insight extraction"
+                  description="Reveal important themes, people, organizations, and recurring patterns."
+                  icon={<Lightbulb className="h-5 w-5" />}
+                  color="amber"
+                  disabled={!cleanText}
+                  onProcess={handleExtract}
+                  output={results.extract}
+                />
+                <ModuleCard
+                  title="Summarization"
+                  description="Create a complete structured summary covering the entire document."
+                  icon={<FileSearch className="h-5 w-5" />}
+                  color="green"
+                  disabled={!uploadedFile}
+                  onProcess={handleSummarize}
+                  output={results.summarize}
+                />
+              </section>
             </div>
-          </section>
-        </div>
 
-        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#b6583b]">Tools from the field / No. 03</p>
-            <h3 className="paperiq-serif text-3xl tracking-[-0.035em] text-[#20372d]">Your reading instruments.</h3>
+            <aside className="space-y-5 2xl:sticky 2xl:top-8 2xl:self-start">
+              <section className="border border-[#d8d1c1] bg-[#fffefa] p-5">
+                <div className="mb-5 flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#b6583b]">Live status</p>
+                    <h3 className="mt-1 text-base font-semibold text-[#20372d]">Analysis map</h3>
+                  </div>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fae9df] text-[#b6583b]"><Zap className="h-4 w-4" /></span>
+                </div>
+
+                <div className="relative space-y-0 before:absolute before:bottom-5 before:left-[0.72rem] before:top-5 before:w-px before:bg-[#ded8ca]">
+                  {[
+                    { label: "Document added", complete: Boolean(uploadedFile) },
+                    { label: "Text prepared", complete: Boolean(results.preprocess) },
+                    { label: "Insights found", complete: Boolean(results.extract) },
+                    { label: "Summary ready", complete: Boolean(results.summarize) },
+                  ].map(({ label, complete }, index) => (
+                    <div key={label} className="relative flex items-center gap-3 py-3">
+                      {complete ? (
+                        <CheckCircle2 className="z-10 h-6 w-6 shrink-0 bg-[#fffefa] text-[#527a60]" />
+                      ) : (
+                        <span className="z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#c7c0b2] bg-[#fffefa] text-[9px] text-[#817a6e]">{index + 1}</span>
+                      )}
+                      <span className={`text-xs font-medium ${complete ? "text-[#315e4c]" : "text-[#777264]"}`}>{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="overflow-hidden border border-[#173b31] bg-[#173b31] p-5 text-[#fffaf0]">
+                <BarChart3 className="h-5 w-5 text-[#e98b67]" />
+                <h3 className="paperiq-serif mt-6 text-2xl">See the document differently.</h3>
+                <p className="mt-2 text-xs leading-5 text-[#c7d0c5]">Open charts for key themes, entities, reading time, and document complexity.</p>
+                <Button
+                  type="button"
+                  onClick={() => setIsVizOpen(true)}
+                  disabled={!results.extract}
+                  className="mt-5 h-10 w-full rounded-full bg-[#fffaf0] text-xs font-semibold text-[#173b31] hover:bg-white disabled:opacity-40"
+                >
+                  {results.extract ? "Open visual insights" : "Extract insights first"}
+                </Button>
+              </section>
+
+              <div className="hidden items-center gap-2 px-1 text-[11px] text-[#777264] 2xl:flex">
+                <LifeBuoy className="h-3.5 w-3.5" /> Files up to 10 MB · PDF, DOCX, TXT
+              </div>
+            </aside>
           </div>
-          <p className="text-xs text-[#777264]">Follow the margin notes, or skip ahead to the short version.</p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <ModuleCard
-            title="Ingestion Module"
-            description="Read every page and capture the original content without losing context."
-            icon={<Database className="h-6 w-6" />}
-            color="blue"
-            disabled={!uploadedFile}
-            onProcess={handleIngest}
-            output={results.ingestion}
-          />
-
-          <ModuleCard
-            title="Preprocessing Module"
-            description="Remove extraction noise while preserving meaningful names, dates, and details."
-            icon={<Settings className="h-6 w-6" />}
-            color="purple"
-            disabled={!rawText}
-            onProcess={handlePreprocess}
-            output={results.preprocess}
-          />
-
-          <ModuleCard
-            title="Insight Extraction"
-            description="Reveal important themes, people, organizations, and recurring patterns."
-            icon={<Lightbulb className="h-6 w-6" />}
-            color="amber"
-            disabled={!cleanText}
-            onProcess={handleExtract}
-            output={results.extract}
-          />
-
-          <ModuleCard
-            title="Summarization Module"
-            description="Get a complete, structured AI summary that covers the entire document."
-            icon={<FileSearch className="h-6 w-6" />}
-            color="green"
-            disabled={!uploadedFile}
-            onProcess={handleSummarize}
-            output={results.summarize}
-          />
-
-          {/* Visualization Module */}
-          <ModuleCard
-            title="Visualization Module"
-            description="Explore beautiful charts, reading metrics, and your document’s key relationships."
-            icon={<BarChart3 className="h-6 w-6" />}
-            color="green"
-            disabled={!results.extract}
-            onProcess={() => setIsVizOpen(true)}
-            output={null}
-          />
-        </div>
 
         {/* Visualization Popup */}
         <Dialog open={isVizOpen} onOpenChange={setIsVizOpen}>
@@ -492,6 +504,7 @@ const Dashboard = () => {
           </DialogContent>
         </Dialog>
       </main>
+    </div>
     </div>
   );
 };

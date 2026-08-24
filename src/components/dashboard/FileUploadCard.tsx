@@ -80,6 +80,15 @@ const FileUploadCard = ({ onFileUpload, uploadedFile }: FileUploadCardProps) => 
         </span>
       </div>
 
+      <input
+        id="document-upload"
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf,.docx,.txt"
+        onChange={handleFileSelect}
+        className="hidden"
+      />
+
         {!uploadedFile ? (
           <div
             className={`relative overflow-hidden rounded-sm border-2 border-dashed px-5 py-10 text-center transition-all duration-300 sm:py-12 ${
@@ -103,13 +112,6 @@ const FileUploadCard = ({ onFileUpload, uploadedFile }: FileUploadCardProps) => 
                   PDF, DOCX, or TXT · Up to 10 MB
                 </p>
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".pdf,.docx,.txt"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
               <Button
                 onClick={() => fileInputRef.current?.click()}
                 className="paperiq-primary-button mt-1 w-full px-6 sm:w-auto"
