@@ -64,17 +64,17 @@ const FileUploadCard = ({ onFileUpload, uploadedFile }: FileUploadCardProps) => 
 
   return (
     <section className="paperiq-glass relative overflow-hidden rounded-sm p-5 sm:p-7">
-      <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full border border-[#e7dfcf]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-violet-500/10 blur-2xl" />
       <div className="relative mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <div className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#b6583b]">
+          <div className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-violet-300">
             <CloudUpload className="h-4 w-4" />
             Desk No. 01 / Intake
           </div>
-          <h3 className="paperiq-serif text-2xl tracking-tight text-[#20372d]">Place a document on the desk.</h3>
-          <p className="mt-1 text-sm text-[#687168]">A research paper, report, resume, or another curious read.</p>
+          <h3 className="text-2xl font-semibold tracking-tight text-white">Place a document on the desk.</h3>
+          <p className="mt-1 text-sm text-slate-400">A research paper, report, resume, or another curious read.</p>
         </div>
-        <span className="paperiq-stamp inline-flex rotate-2 items-center gap-1.5 text-[#3d6754]">
+        <span className="paperiq-stamp inline-flex items-center gap-1.5 text-cyan-300">
           <ShieldCheck className="h-3.5 w-3.5" />
           Private file
         </span>
@@ -93,22 +93,22 @@ const FileUploadCard = ({ onFileUpload, uploadedFile }: FileUploadCardProps) => 
           <div
             className={`relative overflow-hidden rounded-sm border-2 border-dashed px-5 py-10 text-center transition-all duration-300 sm:py-12 ${
               isDragging
-                ? "border-[#315e4c] bg-[#eaf0e9]"
-                : "border-[#d8d1c1] bg-[#faf8f2] hover:border-[#bf6a4f] hover:bg-[#fffdf8]"
+                ? "border-violet-400 bg-violet-500/10"
+                : "border-white/10 bg-white/[0.025] hover:border-violet-400/60 hover:bg-white/[0.04]"
             }`}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
           >
             <div className="flex flex-col items-center gap-4">
-              <div className="flex h-16 w-16 rotate-[-5deg] items-center justify-center border border-[#e3d3be] bg-[#f5e8d5] shadow-[4px_4px_0_#e8ddcc] [animation:paperiq-float_5s_ease-in-out_infinite]">
-                <CloudUpload className="h-7 w-7 text-[#a4583f]" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-violet-400/20 bg-violet-500/10 shadow-lg shadow-violet-500/10 [animation:paperiq-float_5s_ease-in-out_infinite]">
+                <CloudUpload className="h-7 w-7 text-violet-300" />
               </div>
               <div>
-                <p className="paperiq-serif mb-1 text-lg text-[#20372d]">
+                <p className="mb-1 text-lg font-semibold text-white">
                   Drop your next good read here.
                 </p>
-                <p className="text-sm text-[#697268]">
+                <p className="text-sm text-slate-400">
                   PDF, DOCX, or TXT · Up to 10 MB
                 </p>
               </div>
@@ -122,20 +122,20 @@ const FileUploadCard = ({ onFileUpload, uploadedFile }: FileUploadCardProps) => 
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between gap-3 rounded-sm border border-[#a8beac] bg-[#eef3eb] p-4 sm:p-5">
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.07] p-4 sm:p-5">
             <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-[#dce9db]">
-                <FileText className="h-5 w-5 text-[#315e4c]" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-400/10">
+                <FileText className="h-5 w-5 text-emerald-300" />
               </div>
               <div className="min-w-0">
-                <p className="truncate font-medium text-[#20372d]">{uploadedFile.name}</p>
-                <p className="mt-1 flex items-center gap-1.5 text-xs text-[#315e4c]">
+                <p className="truncate font-medium text-white">{uploadedFile.name}</p>
+                <p className="mt-1 flex items-center gap-1.5 text-xs text-emerald-300">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   Ready to analyze · {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={clearFile} aria-label="Remove uploaded document" className="shrink-0 rounded-sm text-[#697268] hover:bg-[#dce9db] hover:text-[#20372d]">
+            <Button variant="ghost" size="icon" onClick={clearFile} aria-label="Remove uploaded document" className="shrink-0 rounded-xl text-slate-400 hover:bg-white/[0.06] hover:text-white">
               <X className="h-4 w-4" />
             </Button>
           </div>

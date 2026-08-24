@@ -13,10 +13,10 @@ interface ModuleCardProps {
 }
 
 const colorClasses = {
-  blue: { icon: "border-[#afc7d0] bg-[#e8f0f2] text-[#355969]", dot: "bg-[#52788a]", number: "01" },
-  purple: { icon: "border-[#cfbea6] bg-[#f3ede3] text-[#775c40]", dot: "bg-[#9b7650]", number: "02" },
-  amber: { icon: "border-[#e8c892] bg-[#fbf1dc] text-[#946617]", dot: "bg-[#c38729]", number: "03" },
-  green: { icon: "border-[#b5cbbb] bg-[#e9f0e8] text-[#315e4c]", dot: "bg-[#527a60]", number: "04" },
+  blue: { icon: "border-cyan-400/20 bg-cyan-400/10 text-cyan-300", dot: "bg-cyan-400", number: "01" },
+  purple: { icon: "border-violet-400/20 bg-violet-500/10 text-violet-300", dot: "bg-violet-400", number: "02" },
+  amber: { icon: "border-amber-400/20 bg-amber-400/10 text-amber-300", dot: "bg-amber-400", number: "03" },
+  green: { icon: "border-emerald-400/20 bg-emerald-400/10 text-emerald-300", dot: "bg-emerald-400", number: "04" },
 };
 
 const formatInlineMarkdown = (text: string): ReactNode[] =>
@@ -115,7 +115,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               <h5 className="font-semibold text-sm mb-2 text-foreground">Keywords:</h5>
               <div className="flex flex-wrap gap-2">
                 {outputData.keywords.map((keyword: string, index: number) => (
-                  <span key={index} className="rounded-sm border border-[#e6cc96] bg-[#fbf1dc] px-2.5 py-1 text-xs font-medium text-[#805b1a]">
+                  <span key={index} className="rounded-full border border-amber-400/20 bg-amber-400/10 px-2.5 py-1 text-xs font-medium text-amber-200">
                     {keyword}
                   </span>
                 ))}
@@ -127,7 +127,7 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
               <h5 className="font-semibold text-sm mb-2 text-foreground">Entities:</h5>
               <div className="flex flex-wrap gap-2">
                 {outputData.entities.map((entity: string | [string, string], index: number) => (
-                  <span key={index} className="rounded-sm border border-[#bacdbc] bg-[#edf2e9] px-2.5 py-1 text-xs font-medium text-[#315e4c]">
+                  <span key={index} className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2.5 py-1 text-xs font-medium text-cyan-200">
                     {Array.isArray(entity) ? entity[0] : entity}
                   </span>
                 ))}
@@ -157,32 +157,32 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
   };
 
   return (
-    <article className="group relative border-b border-[#ded8ca] bg-[#fffefa] transition-colors duration-200 last:border-b-0 hover:bg-[#fbf8f0]">
+    <article className="group relative border-b border-white/[0.07] bg-[#111827]/70 transition-colors duration-200 last:border-b-0 hover:bg-[#151e31]">
       <div className="grid gap-4 px-4 py-5 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:items-center sm:px-5">
         <div className={`flex h-12 w-12 items-center justify-center rounded-full border ${colorClasses[color].icon}`}>{icon}</div>
 
         <div className="min-w-0">
           <div className="mb-1.5 flex flex-wrap items-center gap-2">
-            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8a8378]">Step {colorClasses[color].number}</span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-500">Step {colorClasses[color].number}</span>
             {output ? (
-              <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#315e4c]">
+              <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-emerald-300">
                 <CheckCircle2 className="h-3 w-3" /> Complete
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#8a8378]">
+              <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-slate-500">
                 <span className={`h-1.5 w-1.5 rounded-full ${disabled ? "bg-[#c6c0b5]" : colorClasses[color].dot}`} />
                 {disabled ? "Waiting" : "Ready"}
               </span>
             )}
           </div>
-          <h3 className="text-[15px] font-semibold text-[#20372d]">{title}</h3>
-          <p className="mt-1 max-w-2xl text-xs leading-5 text-[#6f766d]">{description}</p>
+          <h3 className="text-[15px] font-semibold text-white">{title}</h3>
+          <p className="mt-1 max-w-2xl text-xs leading-5 text-slate-400">{description}</p>
         </div>
 
         <Button
           onClick={handleProcess}
           disabled={disabled || isProcessing}
-          className="h-10 w-full shrink-0 rounded-full border border-[#cfc7b8] bg-[#fffdf8] px-4 text-xs font-semibold text-[#20372d] shadow-none transition-all hover:border-[#315e4c] hover:bg-[#eef2ea] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
+          className="h-10 w-full shrink-0 rounded-full border border-white/10 bg-white/[0.045] px-4 text-xs font-semibold text-slate-200 shadow-none transition-all hover:border-violet-400/50 hover:bg-violet-500/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
         >
           {isProcessing ? (
             <>
@@ -200,8 +200,8 @@ const ModuleCard = ({ title, description, icon, color, disabled, onProcess, outp
       </div>
 
       {output ? (
-        <div className="mx-4 mb-5 max-h-80 overflow-y-auto rounded-sm border border-[#ddd5c6] bg-[#faf8f2] p-4 sm:ml-[5.25rem] sm:mr-5">
-          <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.17em] text-[#b6583b]">Module output</h4>
+        <div className="mx-4 mb-5 max-h-80 overflow-y-auto rounded-xl border border-white/[0.08] bg-black/15 p-4 sm:ml-[5.25rem] sm:mr-5">
+          <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.17em] text-violet-300">Module output</h4>
           {renderOutput(output)}
         </div>
       ) : null}
