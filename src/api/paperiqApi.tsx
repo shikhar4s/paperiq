@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type InternalAxiosRequestConfig } from "axios";
 
 // In production the React build is served by Django, so a relative path works.
 // In development, vite.config.ts proxies /api to the Django dev server.
@@ -10,29 +10,55 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-// ✅ Token + Redirect setup
-const setTokenAndRedirection = () => {
-  api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
+// Share one refresh across concurrent requests, then replay each upload once.
+type RetryConfig = InternalAxiosRequestConfig & { _retry?: boolean };
+let refreshInFlight: Promise<string> | null = null;
+const isAuthRequest = (url = "") => /\/auth\/(login|register|refresh)\//.test(url);
 
-  api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error.response?.status === 401) {
-        logoutUser();
-        window.location.href = "/login";
-      }
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+  if (token && !isAuthRequest(config.url)) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const original = error.config as RetryConfig | undefined;
+    if (error.response?.status !== 401 || !original || isAuthRequest(original.url)) {
       return Promise.reject(error);
     }
-  );
-};
-
-setTokenAndRedirection();
+    const refresh = localStorage.getItem("refreshToken");
+    if (refresh && !original._retry) {
+      original._retry = true;
+      try {
+        if (!refreshInFlight) {
+          refreshInFlight = api.post("/auth/refresh/", { refresh })
+            .then(({ data }) => {
+              localStorage.setItem("accessToken", data.access);
+              if (data.refresh) localStorage.setItem("refreshToken", data.refresh);
+              return data.access as string;
+            })
+            .finally(() => { refreshInFlight = null; });
+        }
+        const access = await refreshInFlight;
+        original.headers.Authorization = `Bearer ${access}`;
+        return api.request(original);
+      } catch (refreshError) {
+        // Preserve the session on a temporary network/server failure.
+        if (!axios.isAxiosError(refreshError) ||
+            ![400, 401].includes(refreshError.response?.status ?? 0)) {
+          return Promise.reject(refreshError);
+        }
+      }
+    }
+    logoutUser();
+    window.location.assign("/login");
+    return Promise.reject(error);
+  }
+);
 
 //
 // ======================== AUTH APIs ========================
@@ -47,9 +73,10 @@ export const registerUser = async (name: string, email: string, password: string
 // ✅ Login user and store token
 export const loginUser = async (email: string, password: string) => {
   const response = await api.post("/auth/login/", { email, password });
-  const { access, user } = response.data;
+  const { access, refresh, user } = response.data;
 
   localStorage.setItem("accessToken", access);
+  localStorage.setItem("refreshToken", refresh);
   localStorage.setItem("user", JSON.stringify(user));
 
   return user;
@@ -67,6 +94,7 @@ export const getCurrentUser = async () => {
 // ✅ Logout
 export const logoutUser = () => {
   localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
   localStorage.removeItem("user");
 };
 

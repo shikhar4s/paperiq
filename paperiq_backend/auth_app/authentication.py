@@ -1,4 +1,6 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.exceptions import AuthenticationFailed
+from mongoengine.errors import ValidationError
 from paperiq_ai.models import User
 
 class MongoJWTAuthentication(JWTAuthentication):
@@ -6,5 +8,5 @@ class MongoJWTAuthentication(JWTAuthentication):
         user_id = validated_token.get("user_id")
         try:
             return User.objects.get(user_id=user_id)
-        except User.DoesNotExist:
-            return None
+        except (User.DoesNotExist, ValidationError):
+            raise AuthenticationFailed("User not found")

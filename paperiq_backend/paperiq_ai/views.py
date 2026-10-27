@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
@@ -114,6 +115,7 @@ def extract_insights(request):
 # --- HEAVILY UPDATED: This is now the main endpoint for processing AND saving ---
 @csrf_exempt
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def summarize_text(request):
     """
     Processes a document, generates a summary, extracts insights,

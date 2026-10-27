@@ -1,5 +1,5 @@
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth.hashers import check_password, make_password
@@ -8,6 +8,7 @@ from mongoengine.errors import DoesNotExist
 
 # ---------------- LOGIN ----------------
 @api_view(['POST'])
+@authentication_classes([])
 def login_view(request):
     email = request.data.get("email")
     password = request.data.get("password")
@@ -41,6 +42,7 @@ def login_view(request):
 
 # ---------------- REGISTER ----------------
 @api_view(['POST'])
+@authentication_classes([])
 def register(request):
     email = request.data.get("email")
     password = request.data.get("password")
