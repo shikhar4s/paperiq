@@ -65,5 +65,7 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
+# Keep health checks responsive while a document waits for the AI provider.
+# A single synchronous worker blocks all requests and triggers Render restarts.
 # Render (and most PaaS) inject $PORT; bind to it and fall back to 8000 locally.
-CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn paperiq_backend.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers ${WEB_CONCURRENCY:-2} --timeout 120 --access-logfile - --error-logfile -"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && exec gunicorn paperiq_backend.wsgi:application --bind 0.0.0.0:${PORT:-8000} --worker-class gthread --workers ${WEB_CONCURRENCY:-1} --threads 4 --timeout 120 --access-logfile - --error-logfile -"]
